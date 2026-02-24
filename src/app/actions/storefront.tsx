@@ -23,7 +23,6 @@ export async function getStorefrontData() {
       }),
 
       // 3. Featured Products (The actual items shown inside the tabs)
-      // We fetch a larger pool (100) to ensure every Featured Category tab has items to show
       prisma.product.findMany({
         where: { isFeatured: true, isActive: true },
         take: 100, 
@@ -33,22 +32,24 @@ export async function getStorefrontData() {
         }
       }),
 
-      // 4. Top Sellers
+      // 4. Top Sellers (UPDATED: Filter by isTopSeller flag)
       prisma.product.findMany({
-        where: { isActive: true },
+        where: { 
+          isTopSeller: true, // <--- CHANGED FROM STOCK SORT TO BOOLEAN CHECK
+          isActive: true 
+        },
         take: 8,
-        orderBy: { stock: 'asc' }, 
+        orderBy: { updatedAt: "desc" }, // Shows recently flagged items first
         include: { categories: true }
       }),
       
-      // 5. FEATURED CATEGORIES (The Tabs)
-      // This fetches ALL categories flagged as isFeatured = true
+      // 5. Featured Categories
       prisma.category.findMany({
         where: { isFeatured: true, isActive: true },
         orderBy: { name: 'asc' }
       }),
 
-      // 6. All Active Categories (For the grid layout below Hero)
+      // 6. All Active Categories
       prisma.category.findMany({
         where: { isActive: true },
         take: 6, 
@@ -74,12 +75,9 @@ export async function getStorefrontData() {
   }
 }
 
-
-
-// --- NEW FUNCTION: Fetch products when tab is clicked ---
+// --- Fetch products when tab is clicked ---
 export async function getProductsByCategory(categoryId: string) {
   try {
-    // If "All", fetch generic featured items
     if (categoryId === "All") {
       return await prisma.product.findMany({
         where: { isFeatured: true, isActive: true },
@@ -91,7 +89,6 @@ export async function getProductsByCategory(categoryId: string) {
       });
     }
 
-    // Otherwise, fetch by specific Category ID
     return await prisma.product.findMany({
       where: { 
         categoryIds: { has: categoryId },

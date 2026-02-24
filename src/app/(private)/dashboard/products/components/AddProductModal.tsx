@@ -28,9 +28,20 @@ export default function AddProductModal({ onClose }: AddProductModalProps) {
 
   // --- STATE FOR MAIN PRODUCT ---
   const [formData, setFormData] = useState({
-    name: "", slug: "", description: "", basePrice: "", discountPrice: "",
-    stock: "", sku: "", categoryId: "", hasVariants: false,
-    isFeatured: false, isHotDeal: false, isNewArrival: true, isActive: true,
+    name: "", 
+    slug: "", 
+    description: "", 
+    basePrice: "", 
+    discountPrice: "",
+    stock: "", 
+    sku: "", 
+    categoryId: "", 
+    hasVariants: false,
+    isFeatured: false, 
+    isHotDeal: false, 
+    isNewArrival: true, 
+    isTopSeller: false, // <--- ADDED INITIAL STATE
+    isActive: true,
   });
 
   const [mainImages, setMainImages] = useState<File[]>([]);
@@ -117,9 +128,7 @@ export default function AddProductModal({ onClose }: AddProductModalProps) {
       return toast("Product Name and Category are required.", "error");
     }
 
-    // 1. PRE-VALIDATION: Check file sizes before uploading to prevent 413 limit errors
-    // The Next.js default is strictly 1MB (1,048,576 bytes). 
-    // We check against slightly less (e.g. 1,000,000 bytes) to leave room for the text payload.
+    // 1. PRE-VALIDATION: Check file sizes before uploading
     let totalPayloadSize = 0;
     mainImages.forEach(file => { totalPayloadSize += file.size });
     variants.forEach(v => { if (v.imageFile) totalPayloadSize += v.imageFile.size });
@@ -138,6 +147,7 @@ export default function AddProductModal({ onClose }: AddProductModalProps) {
     submitData.append("isFeatured", String(formData.isFeatured));
     submitData.append("isHotDeal", String(formData.isHotDeal));
     submitData.append("isNewArrival", String(formData.isNewArrival));
+    submitData.append("isTopSeller", String(formData.isTopSeller)); // <--- APPEND TO FORMDATA
 
     if (formData.discountPrice) submitData.append("discountPrice", formData.discountPrice);
 
@@ -178,7 +188,6 @@ export default function AddProductModal({ onClose }: AddProductModalProps) {
     } catch (error: any) {
       console.error("Submission error:", error);
       
-      // 2. ERROR CATCHING: Fallback if the server still throws a 413 size error
       const errorMessage = error?.message || "";
       if (errorMessage.includes("Body exceeded") || errorMessage.includes("1 MB limit") || errorMessage.includes("size limit")) {
         toast("Upload failed: File sizes exceed the server 1MB limit. Please compress your images.", "error");
@@ -224,6 +233,7 @@ export default function AddProductModal({ onClose }: AddProductModalProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Left Col: Main Details & Variants */}
             <div className="lg:col-span-2 space-y-8">
+              {/* ... (Existing inputs: Name, Slug, Category, Description, Images) ... */}
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
@@ -362,6 +372,7 @@ export default function AddProductModal({ onClose }: AddProductModalProps) {
                   <Toggle label="Featured Item" checked={formData.isFeatured} onChange={() => setFormData({ ...formData, isFeatured: !formData.isFeatured }) } />
                   <Toggle label="Hot Deal" checked={formData.isHotDeal} onChange={() => setFormData({ ...formData, isHotDeal: !formData.isHotDeal }) } />
                   <Toggle label="New Arrival" checked={formData.isNewArrival} onChange={() => setFormData({ ...formData, isNewArrival: !formData.isNewArrival }) } />
+                  <Toggle label="Top Seller" checked={formData.isTopSeller} onChange={() => setFormData({ ...formData, isTopSeller: !formData.isTopSeller }) } /> {/* <--- ADDED TOGGLE */}
                 </div>
               </div>
             </div>

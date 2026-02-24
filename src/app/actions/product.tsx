@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { uploadImage } from "@/lib/cloudinary";
 import { revalidatePath } from "next/cache";
 
+// --- 1. CREATE PRODUCT ---
 export async function createProduct(formData: FormData) {
   try {
     // 1. Extract Base Product Data
@@ -18,6 +19,7 @@ export async function createProduct(formData: FormData) {
     const isFeatured = formData.get("isFeatured") === "true";
     const isHotDeal = formData.get("isHotDeal") === "true";
     const isNewArrival = formData.get("isNewArrival") === "true";
+    const isTopSeller = formData.get("isTopSeller") === "true"; // <--- ADDED
 
     // Pricing
     const basePrice = parseFloat(formData.get("basePrice") as string);
@@ -62,7 +64,7 @@ export async function createProduct(formData: FormData) {
     }
 
     // 4. Process Variants (If Applicable)
-    let variantsToCreate = [];
+    let variantsToCreate: any[] = [];
     if (hasVariants) {
       const variantsDataStr = formData.get("variantsData") as string;
       const parsedVariants = JSON.parse(variantsDataStr);
@@ -120,6 +122,7 @@ export async function createProduct(formData: FormData) {
         isFeatured,
         isHotDeal,
         isNewArrival,
+        isTopSeller, // <--- SAVED TO DB
         categories: {
           connect: { id: categoryId },
         },
@@ -131,7 +134,7 @@ export async function createProduct(formData: FormData) {
       },
     });
 
-    revalidatePath("/dashboard/products"); // Adjust path to match your actual route
+    revalidatePath("/dashboard/products"); 
     return { success: true };
   } catch (error: any) {
     console.error("Failed to create product:", error);
@@ -142,14 +145,14 @@ export async function createProduct(formData: FormData) {
   }
 }
 
-// --- NEW: FETCH PRODUCTS ---
+// --- 2. FETCH PRODUCTS ---
 export async function getProducts() {
   try {
     const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
       include: {
-        categories: { select: { name: true } }, // Fetch category names
-        variants: { select: { stock: true } }, // Fetch variant stock to calculate total stock
+        categories: { select: { name: true } }, 
+        variants: { select: { stock: true } }, 
       },
     });
 
@@ -160,7 +163,7 @@ export async function getProducts() {
   }
 }
 
-// --- NEW: TOGGLE PRODUCT ACTIVE STATUS ---
+// --- 3. TOGGLE PRODUCT ACTIVE STATUS ---
 export async function toggleProductStatus(id: string, currentStatus: boolean) {
   try {
     await prisma.product.update({
@@ -176,7 +179,23 @@ export async function toggleProductStatus(id: string, currentStatus: boolean) {
   }
 }
 
-// --- NEW: FETCH SINGLE PRODUCT FOR EDITING ---
+// --- 4. TOGGLE TOP SELLER STATUS (NEW) ---
+export async function toggleProductTopSeller(id: string, currentStatus: boolean) {
+  try {
+    await prisma.product.update({
+      where: { id },
+      data: { isTopSeller: !currentStatus },
+    });
+
+    revalidatePath("/dashboard/products");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update top seller status:", error);
+    return { success: false };
+  }
+}
+
+// --- 5. FETCH SINGLE PRODUCT FOR EDITING ---
 export async function getProduct(id: string) {
   try {
     const product = await prisma.product.findUnique({
@@ -195,7 +214,7 @@ export async function getProduct(id: string) {
   }
 }
 
-// --- NEW: DELETE PRODUCT ---
+// --- 6. DELETE PRODUCT ---
 export async function deleteProduct(id: string) {
   try {
     // Because of onDelete: Cascade in your schema, this will also delete associated variants
@@ -211,7 +230,7 @@ export async function deleteProduct(id: string) {
   }
 }
 
-// --- NEW: UPDATE PRODUCT ---
+// --- 7. UPDATE PRODUCT ---
 export async function updateProduct(id: string, formData: FormData) {
   try {
     // 1. Extract Base Data
@@ -225,6 +244,7 @@ export async function updateProduct(id: string, formData: FormData) {
     const isFeatured = formData.get("isFeatured") === "true";
     const isHotDeal = formData.get("isHotDeal") === "true";
     const isNewArrival = formData.get("isNewArrival") === "true";
+    const isTopSeller = formData.get("isTopSeller") === "true"; // <--- ADDED
 
     const basePrice = parseFloat(formData.get("basePrice") as string);
     const discountPriceStr = formData.get("discountPrice") as string;
@@ -271,7 +291,7 @@ export async function updateProduct(id: string, formData: FormData) {
     }
 
     // 4. Process Variants
-    let variantsToCreate = [];
+    let variantsToCreate: any[] = [];
     if (hasVariants) {
       const variantsDataStr = formData.get("variantsData") as string;
       const parsedVariants = JSON.parse(variantsDataStr);
@@ -328,17 +348,17 @@ export async function updateProduct(id: string, formData: FormData) {
         isFeatured,
         isHotDeal,
         isNewArrival,
+        isTopSeller, // <--- SAVED TO DB
         categories: {
-          set: [{ id: categoryId }], // 'set' replaces the existing connections
+          set: [{ id: categoryId }], 
         },
-        // For variants, we clear out the old ones and recreate the new list to ensure sync
         variants: hasVariants
           ? {
               deleteMany: {},
               create: variantsToCreate,
             }
           : {
-              deleteMany: {}, // If changed from variants to simple product, wipe old variants
+              deleteMany: {},
             },
       },
     });

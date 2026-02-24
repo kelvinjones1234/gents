@@ -118,6 +118,7 @@ model Product {
   isHotDeal     Boolean  @default(false)
   isNewArrival  Boolean  @default(true)
   isActive      Boolean  @default(true) 
+  isTopSeller   Boolean  @default(false)
 
   // Relations
   categoryIds   String[]   @db.ObjectId

@@ -338,7 +338,7 @@ export default function Main({
         </div>
       </section>
 
-      {/* 6. TOP SELLERS */}
+      {/* 6. TOP SELLERS (TRENDING NOW) */}
       <section className="py-16 bg-[#FAFAFA] border-b border-gray-200">
         <div className="container-main mx-auto px-6 md:px-12 flex justify-between items-center mb-12">
           <h2 className="text-xs font-bold uppercase tracking-widest text-foreground">

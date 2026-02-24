@@ -37,6 +37,7 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
     isFeatured: false,
     isHotDeal: false,
     isNewArrival: false,
+    isTopSeller: false,
     isActive: true,
   });
 
@@ -61,7 +62,9 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
         if (catRes.success && catRes.categories) setCategoryOptions(catRes.categories);
 
         if (prodRes.success && prodRes.product) {
-          const p = prodRes.product;
+          // --- FIX APPLIED HERE: Cast to 'any' to access isTopSeller ---
+          const p = prodRes.product as any; 
+          
           setFormData({
             name: p.name,
             slug: p.slug,
@@ -75,6 +78,7 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
             isFeatured: p.isFeatured,
             isHotDeal: p.isHotDeal,
             isNewArrival: p.isNewArrival,
+            isTopSeller: p.isTopSeller || false, // Now accessible via 'any'
             isActive: p.isActive,
           });
 
@@ -82,7 +86,7 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
 
           if (p.variants && p.variants.length > 0) {
             setVariants(p.variants.map((v: any) => ({
-              id: v.id || Date.now() + Math.random(), // Needs unique ID for mapped keys
+              id: v.id || Date.now() + Math.random(), 
               color: v.color || "",
               size: v.size || "",
               sku: v.sku,
@@ -93,7 +97,7 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
               imagePreview: null,
             })));
           } else {
-            addVariant(); // Add empty variant if none exist but toggle gets flipped
+            addVariant(); 
           }
         } else {
           toast("Failed to load product details.", "error");
@@ -146,7 +150,7 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
     if (file) {
       updateVariant(id, "imageFile", file);
       updateVariant(id, "imagePreview", URL.createObjectURL(file));
-      updateVariant(id, "existingImage", null); // Clear existing if new is uploaded
+      updateVariant(id, "existingImage", null); 
     }
   };
 
@@ -155,7 +159,6 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
     e.preventDefault();
     if (!formData.name || !formData.categoryId) return toast("Name and Category required.", "error");
 
-    // 1. PRE-VALIDATION: Check file sizes before uploading to prevent 413 limit errors
     let totalPayloadSize = 0;
     newImages.forEach(file => { totalPayloadSize += file.size });
     variants.forEach(v => { if (v.imageFile) totalPayloadSize += v.imageFile.size });
@@ -174,6 +177,8 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
     submitData.append("isFeatured", String(formData.isFeatured));
     submitData.append("isHotDeal", String(formData.isHotDeal));
     submitData.append("isNewArrival", String(formData.isNewArrival));
+    submitData.append("isTopSeller", String(formData.isTopSeller));
+
     if (formData.discountPrice) submitData.append("discountPrice", formData.discountPrice);
 
     // Images
@@ -213,8 +218,6 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
       }
     } catch (error: any) {
       console.error("Submission error:", error);
-      
-      // 2. ERROR CATCHING: Fallback if the server still throws a 413 size error
       const errorMessage = error?.message || "";
       if (errorMessage.includes("Body exceeded") || errorMessage.includes("1 MB limit") || errorMessage.includes("size limit")) {
         toast("Upload failed: File sizes exceed the server 1MB limit. Please compress your images.", "error");
@@ -388,6 +391,7 @@ export default function EditProductModal({ productId, onClose }: EditProductModa
               <Toggle label="Featured Item" checked={formData.isFeatured} onChange={() => setFormData({ ...formData, isFeatured: !formData.isFeatured })} />
               <Toggle label="Hot Deal" checked={formData.isHotDeal} onChange={() => setFormData({ ...formData, isHotDeal: !formData.isHotDeal })} />
               <Toggle label="New Arrival" checked={formData.isNewArrival} onChange={() => setFormData({ ...formData, isNewArrival: !formData.isNewArrival })} />
+              <Toggle label="Top Seller" checked={formData.isTopSeller} onChange={() => setFormData({ ...formData, isTopSeller: !formData.isTopSeller })} />
             </div>
           </div>
         </div>
