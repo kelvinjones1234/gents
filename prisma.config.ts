@@ -5,9 +5,9 @@ import { defineConfig, env } from "prisma/config";
 
 export default defineConfig({
   // 👇 FIX: 'seed' must be an object with a 'command' property
-  seed: {
-    command: 'tsx prisma/seed.ts',
-  },
+  // seed: {
+  //   command: 'tsx prisma/seed.ts',
+  // },
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
