@@ -104,7 +104,7 @@ model Product {
   images        String[] // Array of main product images
 
   // Base values for simple products (without variants)
-  basePrice     Float
+  basePrice     Float 
   discountPrice Float?   
   sku           String?  @unique
   stock         Int      @default(0)
