@@ -1,23 +1,23 @@
-import React from 'react'
-import Main from './components/Main'
-import { getStorefrontData } from '@/app/actions/storefront'
+import React from "react";
+import Main from "./components/Main";
+import { getStorefrontData } from "@/app/actions/storefront";
 
 // Revalidate data every 60 seconds
-export const revalidate = 60 * 60 * 12; 
+export const revalidate = 60;
 
 const HomePage = async () => {
-  const { 
-    newArrivals, 
-    hotDeals, 
-    featuredProducts, 
-    topSellers, 
+  const {
+    newArrivals,
+    hotDeals,
+    featuredProducts,
+    topSellers,
     featuredCategories, // <--- New Data for Tabs
-    allCategories       // <--- New Data for Category Grid
+    allCategories, // <--- New Data for Category Grid
   } = await getStorefrontData();
 
   return (
-    <div className=''>
-      <Main 
+    <div className="">
+      <Main
         newArrivals={newArrivals}
         hotDeals={hotDeals}
         featuredProducts={featuredProducts}
@@ -26,7 +26,7 @@ const HomePage = async () => {
         allCategories={allCategories}
       />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
