@@ -1590,15 +1590,17 @@
 
 
 
+
+
 "use client";
 
 import { Truck, Recycle, ShieldCheck, Instagram, Loader2 } from "lucide-react";
-import { useState, useEffect, useMemo, useTransition } from "react";
+import { useState, useEffect, useMemo, useTransition, useCallback, memo } from "react";
 import { Product, Category, ProductVariant } from "@prisma/client";
 import { getProductsByCategory } from "@/app/actions/storefront";
 import Link from "next/link";
 import OptionModal from "./OptionsModal";
-import { useCart } from "@/context/CartContext"; // <--- IMPORTED
+import { useCart } from "@/context/CartContext";
 
 // --- Types ---
 type ProductWithRelations = Product & {
@@ -1619,6 +1621,110 @@ interface MainProps {
   allCategories: CategoryWithCount[];
 }
 
+// --- EXTRACTED & MEMOIZED CARD COMPONENT ---
+// Moving this outside the main component prevents it from being re-created
+// on every render (which was causing the image blinking).
+const ProductCard = memo(({
+  item,
+  badgeLabel,
+  badgeColor = "bg-foreground",
+  onQuickAdd,
+}: {
+  item: ProductWithRelations;
+  badgeLabel?: string;
+  badgeColor?: string;
+  onQuickAdd: (item: ProductWithRelations) => void;
+}) => {
+  const totalStock =
+    item.hasVariants && item.variants
+      ? item.variants.reduce((sum, v) => sum + v.stock, 0)
+      : item.stock;
+  const isSoldOut = totalStock <= 0;
+
+  return (
+    <div className="min-w-[240px] sm:min-w-[280px] md:min-w-[340px] w-full max-w-[340px] snap-start group cursor-pointer flex flex-col transform-gpu">
+      <div className="aspect-[4/5] w-full bg-[#EFEFEF] relative overflow-hidden border border-gray-100">
+        
+        {/* Status Badges */}
+        {isSoldOut ? (
+          <div className="absolute top-4 left-4 z-20 pointer-events-none">
+            <span className="bg-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-foreground shadow-sm">
+              Sold Out
+            </span>
+          </div>
+        ) : (
+          badgeLabel && (
+            <div className="absolute top-4 left-4 z-20 pointer-events-none">
+              <span
+                className={`${badgeColor} text-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest shadow-sm`}
+              >
+                {badgeLabel}
+              </span>
+            </div>
+          )
+        )}
+
+        {/* Product Image - Optimized */}
+        <div className="absolute inset-0 flex items-center justify-center p-8 bg-[#EFEFEF] transition-colors duration-500 group-hover:bg-[#E5E5E5]">
+          <img
+            src={item.images[0] || "/placeholder.png"}
+            alt={item.name}
+            className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform ${
+              isSoldOut ? "opacity-50 grayscale" : ""
+            }`}
+            loading="lazy"
+            decoding="async" // Helps prevent UI blocking
+          />
+        </div>
+
+        {/* Quick Add Overlay - Optimized Animation */}
+        {!isSoldOut && (
+          <div className="absolute bottom-0 left-0 right-0 z-20 translate-y-full transform-gpu transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] will-change-transform group-hover:translate-y-0">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onQuickAdd(item);
+              }}
+              className="w-full bg-foreground/95 py-4 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-black"
+            >
+              {item.hasVariants ? "Select Options" : "Quick Add"}
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Product Details */}
+      <div className="mt-6 flex flex-col items-center text-center space-y-1.5 px-2">
+        <h3 className="text-[11px] font-bold uppercase tracking-widest text-foreground leading-relaxed line-clamp-2">
+          {item.name}
+        </h3>
+        <p className="text-[10px] uppercase tracking-widest text-muted">
+          {item.categories?.[0]?.name || "Collection"}
+        </p>
+        <div className="flex items-center gap-2 mt-1">
+          {item.discountPrice ? (
+            <>
+              <p className="text-[11px] font-bold tracking-wide tabular-nums text-gray-400 line-through">
+                ₦{item.basePrice.toLocaleString()}
+              </p>
+              <p className="text-[11px] font-bold tracking-wide tabular-nums text-red-600">
+                ₦{item.discountPrice.toLocaleString()}
+              </p>
+            </>
+          ) : (
+            <p className="text-[11px] font-bold tracking-wide tabular-nums text-foreground">
+              ₦{item.basePrice.toLocaleString()}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+});
+// Add display name for debugging
+ProductCard.displayName = "ProductCard";
+
+
 export default function Main({
   newArrivals,
   hotDeals,
@@ -1629,28 +1735,24 @@ export default function Main({
 }: MainProps) {
   
   // --- HOOKS ---
-  const { addItem, toggleCart } = useCart(); // <--- USE CART HOOK
+  const { addItem, toggleCart } = useCart();
   
   const [activeTab, setActiveTab] = useState("All");
-  const [displayedProducts, setDisplayedProducts] =
-    useState<ProductWithRelations[]>(featuredProducts);
+  const [displayedProducts, setDisplayedProducts] = useState<ProductWithRelations[]>(featuredProducts);
   const [isPending, startTransition] = useTransition();
 
   // --- MODAL STATE ---
   const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
-  const [selectedProductForModal, setSelectedProductForModal] =
-    useState<ProductWithRelations | null>(null);
+  const [selectedProductForModal, setSelectedProductForModal] = useState<ProductWithRelations | null>(null);
 
-  // --- CART HANDLERS ---
+  // --- CART HANDLERS (OPTIMIZED) ---
   
-  // 1. Triggered by "Quick Add" button on the card
-  const handleQuickAdd = (product: ProductWithRelations) => {
+  // Memoized to prevent re-creation on every render
+  const handleQuickAdd = useCallback((product: ProductWithRelations) => {
     if (product.hasVariants) {
-      // Option A: Product has options (Color/Size) -> Open Modal
       setSelectedProductForModal(product);
       setIsOptionModalOpen(true);
     } else {
-      // Option B: Simple Product -> Add Immediately
       const price = product.discountPrice ?? product.basePrice;
       
       addItem({
@@ -1663,20 +1765,17 @@ export default function Main({
         maxStock: product.stock,
       });
 
-      // Optional: Open the cart drawer to show success
       toggleCart();
     }
-  };
+  }, [addItem, toggleCart]);
 
-  // 2. Triggered by the "Add to Cart" button inside the Modal
-  const handleModalAddToCart = (
+  const handleModalAddToCart = useCallback((
     product: ProductWithRelations,
     variantId: string,
     quantity: number,
     variantPrice: number,
     variantImage?: string
   ) => {
-    // Find variant details for the cart display name (e.g. "Blue / XL")
     const variant = product.variants.find((v) => v.id === variantId);
     const variantName = variant 
       ? `${variant.color || ""} ${variant.size || ""}`.trim() 
@@ -1695,14 +1794,13 @@ export default function Main({
 
     setIsOptionModalOpen(false);
     toggleCart();
-  };
+  }, [addItem, toggleCart]);
 
   // --- DYNAMIC TABS LOGIC ---
   const tabs = useMemo(() => {
     return [{ id: "All", name: "All", slug: "all" }, ...featuredCategories];
   }, [featuredCategories]);
 
-  // --- HANDLE TAB CLICK ---
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
     startTransition(async () => {
@@ -1713,8 +1811,9 @@ export default function Main({
   };
 
   // --- ANIMATION & LAYOUT LOGIC ---
+  // Note: This logic was causing the re-renders that made images blink
   const [isAnimating, setIsAnimating] = useState(false);
-  const originalFeatures = [
+  const originalFeatures = useMemo(() => [
     {
       id: 0,
       icon: Recycle,
@@ -1733,7 +1832,8 @@ export default function Main({
       title: "2-Year Warranty",
       desc: "We stand behind our durability. Repair or replace guaranteed.",
     },
-  ];
+  ], []);
+  
   const [features, setFeatures] = useState(originalFeatures);
 
   useEffect(() => {
@@ -1750,101 +1850,6 @@ export default function Main({
   const leftCategories = allCategories.slice(0, 3);
   const rightCategories = allCategories.slice(3, 6);
 
-  // --- HELPER COMPONENT: PRODUCT CARD ---
-  const ProductCard = ({
-    item,
-    badgeLabel,
-    badgeColor = "bg-foreground",
-  }: {
-    item: ProductWithRelations;
-    badgeLabel?: string;
-    badgeColor?: string;
-  }) => {
-    const totalStock =
-      item.hasVariants && item.variants
-        ? item.variants.reduce((sum, v) => sum + v.stock, 0)
-        : item.stock;
-    const isSoldOut = totalStock <= 0;
-
-    return (
-      <div className="min-w-[240px] sm:min-w-[280px] md:min-w-[340px] w-full max-w-[340px] snap-start group cursor-pointer flex flex-col">
-        <div className="aspect-[4/5] w-full bg-[#EFEFEF] relative overflow-hidden transition-colors duration-500 hover:bg-[#E5E5E5] border border-gray-100">
-          {/* Status Badges */}
-          {isSoldOut ? (
-            <div className="absolute top-4 left-4 z-20">
-              <span className="bg-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-foreground shadow-sm">
-                Sold Out
-              </span>
-            </div>
-          ) : (
-            badgeLabel && (
-              <div className="absolute top-4 left-4 z-20">
-                <span
-                  className={`${badgeColor} text-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest shadow-sm`}
-                >
-                  {badgeLabel}
-                </span>
-              </div>
-            )
-          )}
-
-          {/* Product Image */}
-          <div className="absolute inset-0 flex items-center justify-center p-8">
-            <img
-              src={item.images[0] || "/placeholder.png"}
-              alt={item.name}
-              className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${
-                isSoldOut ? "opacity-50 grayscale" : ""
-              }`}
-              loading="lazy"
-            />
-          </div>
-
-          {/* Quick Add Overlay */}
-          {!isSoldOut && (
-            <div className="absolute bottom-0 left-0 right-0 bg-foreground/95 backdrop-blur-sm translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-20">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation(); // Stop link propagation
-                  handleQuickAdd(item);
-                }}
-                className="w-full py-4 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-black transition-colors"
-              >
-                {item.hasVariants ? "Select Options" : "Quick Add"}
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Product Details */}
-        <div className="mt-6 flex flex-col items-center text-center space-y-1.5 px-2">
-          <h3 className="text-[11px] font-bold uppercase tracking-widest text-foreground leading-relaxed line-clamp-2">
-            {item.name}
-          </h3>
-          <p className="text-[10px] uppercase tracking-widest text-muted">
-            {item.categories?.[0]?.name || "Collection"}
-          </p>
-          <div className="flex items-center gap-2 mt-1">
-            {item.discountPrice ? (
-              <>
-                <p className="text-[11px] font-bold tracking-wide tabular-nums text-gray-400 line-through">
-                  ₦{item.basePrice.toLocaleString()}
-                </p>
-                <p className="text-[11px] font-bold tracking-wide tabular-nums text-red-600">
-                  ₦{item.discountPrice.toLocaleString()}
-                </p>
-              </>
-            ) : (
-              <p className="text-[11px] font-bold tracking-wide tabular-nums text-foreground">
-                ₦{item.basePrice.toLocaleString()}
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className="bg-background text-foreground font-sans antialiased transition-colors duration-300">
       {/* 0. OPTION MODAL */}
@@ -1852,7 +1857,7 @@ export default function Main({
         isOpen={isOptionModalOpen}
         onClose={() => setIsOptionModalOpen(false)}
         product={selectedProductForModal}
-        // @ts-ignore - The types between modal and main might slightly differ in strict mode but the values are correct
+        // @ts-ignore
         onAddToCart={handleModalAddToCart}
       />
 
@@ -1863,6 +1868,7 @@ export default function Main({
             src="/img1.png"
             alt="Fall Collection Model"
             className="w-full h-full object-contain"
+            decoding="async"
           />
         </div>
         <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
@@ -2015,7 +2021,7 @@ export default function Main({
         </div>
         <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
           {newArrivals.map((item) => (
-            <ProductCard key={item.id} item={item} badgeLabel="New" />
+            <ProductCard key={item.id} item={item} badgeLabel="New" onQuickAdd={handleQuickAdd} />
           ))}
         </div>
       </section>
@@ -2029,6 +2035,8 @@ export default function Main({
               src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800"
               alt="Headphones"
               className="w-full h-full object-cover hover:scale-105 transition-all duration-1000"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="order-2 space-y-6 md:space-y-8">
@@ -2074,7 +2082,7 @@ export default function Main({
         </div>
         <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
           {topSellers.map((item) => (
-            <ProductCard key={item.id} item={item} />
+            <ProductCard key={item.id} item={item} onQuickAdd={handleQuickAdd} />
           ))}
         </div>
       </section>
@@ -2088,6 +2096,7 @@ export default function Main({
               src="/img1.png"
               alt="EDC"
               className="w-full h-full object-cover hover:scale-105 transition-all duration-1000"
+              decoding="async"
             />
           </div>
           <div className="order-2 md:order-1 space-y-6 md:space-y-8">
@@ -2139,6 +2148,7 @@ export default function Main({
               item={item}
               badgeLabel="SALE"
               badgeColor="bg-red-600"
+              onQuickAdd={handleQuickAdd}
             />
           ))}
         </div>
@@ -2152,6 +2162,7 @@ export default function Main({
               src="/img1.png"
               alt="Stealth Series"
               className="w-full h-full object-cover opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-1000"
+              decoding="async"
             />
           </div>
           <div className="order-2 md:order-1 space-y-6 md:space-y-8">
@@ -2224,6 +2235,7 @@ export default function Main({
                   key={item.id}
                   item={item}
                   badgeLabel={item.isNewArrival ? "New" : undefined}
+                  onQuickAdd={handleQuickAdd}
                 />
               ))
             )}
@@ -2245,7 +2257,6 @@ export default function Main({
       </section>
 
       {/* 11. THE BRAND & 12. COLLABORATIONS & 13. SOCIAL & 14. NEWSLETTER */}
-      {/* (Sections 11-14 remain identical to your provided code) */}
       <div className="py-16 bg-white border-b border-gray-200">
         <div className="container-main mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-8 md:gap-24 lg:gap-32">
           <div className="md:w-1/4">
@@ -2306,6 +2317,7 @@ export default function Main({
                     alt="Collab Lifestyle 1"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
                     src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=800"
+                    decoding="async"
                   />
                 </div>
                 <div className="flex-1 overflow-hidden bg-gray-200">
@@ -2313,6 +2325,7 @@ export default function Main({
                     alt="Collab Lifestyle 2"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
                     src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&q=80&w=800"
+                    decoding="async"
                   />
                 </div>
               </div>
@@ -2350,6 +2363,7 @@ export default function Main({
                 alt="Social Feed"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500 flex items-center justify-center">
                 <Instagram className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-110" />
