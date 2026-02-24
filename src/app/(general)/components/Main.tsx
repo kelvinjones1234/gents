@@ -118,7 +118,7 @@ export default function Main({
             ))}
           </div>
           <div className="mt-8 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
-            <span className="h-2 w-2 bg-white rounded-full group-hover:scale-150 transition-transform duration-300"></span>
+            <span className="h-2 w-2 bg-white group-hover:scale-150 transition-transform duration-300"></span>
             <span className="border-b border-transparent group-hover:border-white transition-colors duration-300">
               Explore Now
             </span>
@@ -234,7 +234,7 @@ export default function Main({
           </p>
           <a
             href="/collections/all"
-            className="px-10 py-4 border border-foreground rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
+            className="px-10 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
           >
             View All Products
           </a>
@@ -250,7 +250,7 @@ export default function Main({
           <div className="flex gap-4">
             <Link
               href="/collections/new-arrivals"
-              className="rounded-full px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
+              className="px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
             >
               More
             </Link>
@@ -265,7 +265,7 @@ export default function Main({
             >
               <div className="aspect-[4/5] w-full bg-[#EFEFEF] relative overflow-hidden transition-colors duration-500 hover:bg-[#E5E5E5] border border-gray-100">
                 <div className="absolute top-4 left-4 z-20">
-                  <span className="bg-foreground px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-white rounded-full shadow-sm">
+                  <span className="bg-foreground px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-white shadow-sm">
                     New
                   </span>
                 </div>
@@ -329,7 +329,7 @@ export default function Main({
               industrial design.
             </p>
             <div className="flex items-center gap-3 text-foreground text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
-              <span className="h-2 w-2 bg-foreground rounded-full group-hover:scale-150 transition-transform duration-300"></span>
+              <span className="h-2 w-2 bg-foreground group-hover:scale-150 transition-transform duration-300"></span>
               <span className="border-b border-transparent group-hover:border-foreground transition-colors duration-300">
                 Explore Audio
               </span>
@@ -347,7 +347,7 @@ export default function Main({
           <div className="flex gap-4">
             <Link
               href="/collections/new-arrivals"
-              className="rounded-full px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
+              className="px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
             >
               More
             </Link>
@@ -418,7 +418,7 @@ export default function Main({
               and assist in your daily rituals.
             </p>
             <div className="flex items-center gap-3 text-foreground text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
-              <span className="h-2 w-2 bg-foreground rounded-full group-hover:scale-150 transition-transform duration-300"></span>
+              <span className="h-2 w-2 bg-foreground group-hover:scale-150 transition-transform duration-300"></span>
               <span className="border-b border-transparent group-hover:border-foreground transition-colors duration-300">
                 Explore Hardware
               </span>
@@ -431,13 +431,13 @@ export default function Main({
       <section className="py-16 bg-[#FAFAFA] border-b border-gray-200">
         <div className="container-main mx-auto px-6 md:px-12 flex justify-between items-center mb-12">
           <h2 className="text-xs font-bold uppercase tracking-widest text-red-600 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+            <span className="w-2 h-2 bg-red-600 animate-pulse"></span>
             Flash Sale
           </h2>
           <div className="flex gap-4">
             <Link
               href="/collections/new-arrivals"
-              className="rounded-full px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
+              className="px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
             >
               More
             </Link>
@@ -452,7 +452,7 @@ export default function Main({
               <div className="aspect-[4/5] w-full bg-[#EFEFEF] relative overflow-hidden border border-gray-100">
                 {/* Sale Tag - Higher z-index to stay above button */}
                 <div className="absolute top-4 left-4 z-30">
-                  <span className="bg-red-600 px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-white rounded-full shadow-sm">
+                  <span className="bg-red-600 px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-white shadow-sm">
                     SALE
                   </span>
                 </div>
@@ -520,7 +520,7 @@ export default function Main({
               on clean minimalist lines.
             </p>
             <div className="flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
-              <span className="h-2 w-2 bg-white rounded-full group-hover:scale-150 transition-transform duration-300"></span>
+              <span className="h-2 w-2 bg-white group-hover:scale-150 transition-transform duration-300"></span>
               <span className="border-b border-transparent group-hover:border-white transition-colors duration-300 pb-0.5">
                 Shop The Series
               </span>
@@ -585,14 +585,14 @@ export default function Main({
                     <div className="aspect-[4/5] w-full bg-[#FAFAFA] relative overflow-hidden transition-colors duration-500 hover:bg-[#F0F0F0] border border-gray-100">
                       {isSoldOut && (
                         <div className="absolute top-4 left-4 z-20">
-                          <span className="bg-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-foreground rounded-full shadow-sm">
+                          <span className="bg-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-foreground shadow-sm">
                             Sold Out
                           </span>
                         </div>
                       )}
                       {!isSoldOut && item.isNewArrival && (
                         <div className="absolute top-4 left-4 z-20">
-                          <span className="bg-foreground text-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-full shadow-sm">
+                          <span className="bg-foreground text-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest shadow-sm">
                             New
                           </span>
                         </div>
@@ -652,7 +652,7 @@ export default function Main({
           </p>
           <a
             href="/collections/all"
-            className="px-10 py-4 border border-foreground rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
+            className="px-10 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
           >
             View All Products
           </a>
@@ -708,7 +708,7 @@ export default function Main({
                   engineering for the ultimate home listening experience.
                 </p>
                 <div className="pt-4">
-                  <button className="px-8 py-4 border border-foreground rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300">
+                  <button className="px-8 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300">
                     Learn More
                   </button>
                 </div>
