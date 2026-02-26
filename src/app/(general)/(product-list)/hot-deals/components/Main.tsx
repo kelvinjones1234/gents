@@ -16,7 +16,7 @@ interface MainProps {
   initialProducts: ProductWithRelations[];
 }
 
-export default function Main({ initialProducts }: MainProps) {
+export default function Main({ initialProducts }: MainProps) { 
   const { addItem, toggleCart } = useCart();
 
   // --- States ---

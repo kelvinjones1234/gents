@@ -1,6 +1,7 @@
 "use client";
 
 import { memo } from "react";
+import Link from "next/link"; // 1. Import Link from Next.js
 import { Product, Category, ProductVariant } from "@prisma/client";
 
 type ProductWithRelations = Product & {
@@ -27,7 +28,11 @@ export const ProductCard = memo(({
   const isSoldOut = totalStock <= 0;
 
   return (
-    <div className="w-full group cursor-pointer flex flex-col transform-gpu">
+    // 2. Wrap the card in a Link component. Ensure item.slug exists in your Prisma schema.
+    <Link 
+      href={`/products/${item.slug}`} 
+      className="w-full group cursor-pointer flex flex-col transform-gpu"
+    >
       <div className="aspect-[3/4] sm:aspect-[4/5] w-full bg-[#EFEFEF] relative overflow-hidden border border-gray-100">
         
         {/* Badges */}
@@ -60,6 +65,8 @@ export const ProductCard = memo(({
           <div className="absolute bottom-0 left-0 right-0 z-20 translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
             <button
               onClick={(e) => {
+                // 3. Prevent the link from triggering when the button is clicked
+                e.preventDefault(); 
                 e.stopPropagation();
                 onQuickAdd(item);
               }}
@@ -86,7 +93,7 @@ export const ProductCard = memo(({
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 });
 

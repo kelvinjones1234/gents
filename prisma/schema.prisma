@@ -106,7 +106,7 @@ model Product {
   // Base values for simple products (without variants)
   basePrice     Float 
   discountPrice Float?   
-  sku           String?  @unique
+  sku           String?  @unique 
   stock         Int      @default(0)
 
   // Product Variations (Size, Color, etc.)
