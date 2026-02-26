@@ -21,7 +21,7 @@ import {
   getProducts,
   toggleProductStatus,
   deleteProduct,
-} from "@/app/actions/product";
+} from "@/app/actions/admin/product";
 
 const ITEMS_PER_PAGE = 10; // Adjust this number as needed
 

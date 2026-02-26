@@ -5,7 +5,7 @@ import { X, UploadCloud, ArrowLeft, Loader2 } from "lucide-react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { slugify } from "@/lib/slugify";
 import { useToast } from "@/context/ToastContext";
-import { createCategory } from "@/app/actions/category";
+import { createCategory } from "@/app/actions/admin/category";
 
 interface AddCategoryModalProps {
   onSuccess: () => void;

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { X, UploadCloud, ArrowLeft, Loader2 } from "lucide-react";
 import { slugify } from "@/lib/slugify";
 import { useToast } from "@/context/ToastContext";
-import { updateCategory } from "@/app/actions/category";
+import { updateCategory } from "@/app/actions/admin/category";
 
 interface EditCategoryModalProps {
   category: any;

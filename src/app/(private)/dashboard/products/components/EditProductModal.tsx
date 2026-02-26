@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { X, UploadCloud, ChevronDown, Plus, Trash2, Loader2, Image as ImageIcon, ArrowLeft } from "lucide-react";
 import { useToast } from "@/context/ToastContext";
 import { slugify } from "@/lib/slugify";
-import { getProduct, updateProduct } from "@/app/actions/product";
-import { getCategories } from "@/app/actions/category";
+import { getProduct, updateProduct } from "@/app/actions/admin/product";
+import { getCategories } from "@/app/actions/admin/category";
 
 interface EditProductModalProps {
   productId: string;

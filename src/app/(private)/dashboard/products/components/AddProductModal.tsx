@@ -6,8 +6,8 @@ import {
 } from "lucide-react";
 import { useToast } from "@/context/ToastContext";
 import { slugify } from "@/lib/slugify";
-import { createProduct } from "@/app/actions/product";
-import { getCategories } from "@/app/actions/category";
+import { createProduct } from "@/app/actions/admin/product";
+import { getCategories } from "@/app/actions/admin/category";
 
 interface AddProductModalProps {
   onClose: () => void;

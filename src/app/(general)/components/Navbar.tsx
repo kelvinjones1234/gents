@@ -72,7 +72,7 @@ export default function Navbar() {
           MAIN NAVBAR (Sticks to top)
           ========================================== */}
       <nav className="sticky top-0 z-40 w-full bg-background/90 backdrop-blur-md text-foreground border-b border-gray-200 mx-auto py-4 uppercase tracking-wide text-xs font-medium font-sans transition-colors duration-300">
-        <div className="container mx-auto flex justify-between items-center w-full px-6 md:px-12">
+        <div className="container-main mx-auto flex justify-between items-center w-full px-6 md:px-12">
           
           {/* LEFT: Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8 w-1/3">

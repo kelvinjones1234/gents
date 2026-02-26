@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useToast } from "@/context/ToastContext";
-import { updateCustomer } from "@/app/actions/customer";
+import { updateCustomer } from "@/app/actions/admin/customer";
 
 export default function EditCustomerModal({
   customer,

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { ArrowLeft, Loader2, ShieldAlert } from "lucide-react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useToast } from "@/context/ToastContext";
-import { createCustomer } from "@/app/actions/customer";
+import { createCustomer } from "@/app/actions/admin/customer";
 
 export default function AddCustomerModal({ onSuccess }: { onSuccess: () => void }) {
   const router = useRouter();

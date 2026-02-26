@@ -1,9 +1,8 @@
 import React from "react";
 import Main from "./components/Main";
-import { getStorefrontData } from "@/app/actions/storefront";
+import { getStorefrontData } from "@/app/actions/general/storefront";
 
 // Revalidate data every 60 seconds
-export const revalidate = 60;
 
 const HomePage = async () => {
   const {

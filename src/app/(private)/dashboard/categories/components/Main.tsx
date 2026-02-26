@@ -17,7 +17,7 @@ import {
   toggleCategoryStatus,
   toggleCategoryFeatured, // Make sure to import this
   deleteCategory 
-} from "@/app/actions/category";
+} from "@/app/actions/admin/category";
 
 import AddCategoryModal from "./AddCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";

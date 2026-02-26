@@ -18,7 +18,7 @@ import {
   getCustomers,
   toggleUserStatus,
   deleteUser,
-} from "@/app/actions/customer";
+} from "@/app/actions/admin/customer";
 
 import AddCustomerModal from "./AddCustomerModal";
 import EditCustomerModal from "./EditCustomerModal";

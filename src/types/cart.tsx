@@ -1,26 +1,25 @@
-// src/types/cart.ts
-
 export interface CartItem {
-  key: string; // Unique ID (productId + variantId)
+  key: string;
   productId: string;
   variantId?: string;
   name: string;
-  variantName?: string; // e.g., "Blue / XL"
+  variantName?: string;
   price: number;
-  originalPrice?: number; // For strikethrough UI
+  originalPrice?: number;
   image: string;
   quantity: number;
-  maxStock: number; // To prevent adding more than available
+  maxStock: number;
 }
 
 export interface CartState {
-  items: Record<string, CartItem>; // The Map
+  items: Record<string, CartItem>;
   isOpen: boolean;
 }
 
 export type CartAction =
   | { type: "ADD_ITEM"; payload: CartItem }
-  | { type: "REMOVE_ITEM"; payload: string } // Payload is the Key
+  | { type: "REMOVE_ITEM"; payload: string }
   | { type: "UPDATE_QUANTITY"; payload: { key: string; quantity: number } }
   | { type: "TOGGLE_CART" }
-  | { type: "CLEAR_CART" };
+  | { type: "CLEAR_CART" }
+  | { type: "LOAD_FROM_STORAGE"; payload: CartState }; // <--- ADD THIS
