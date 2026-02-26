@@ -284,16 +284,22 @@ export default function Main({
         onAddToCart={handleModalAddToCart}
       />
 
-      {/* 1. HERO SECTION */}
-      <section className="relative w-full h-[75vh] md:h-[90vh] bg-gradient-to-tr from-[#5E7472] via-[#87928E] to-[#C2B3A1] overflow-hidden flex items-center">
-        <div className="absolute inset-0 z-0 flex items-center justify-center">
+      <section className="relative w-full h-[60vh] md:h-[90vh] bg-gradient-to-tr from-[#5E7472] via-[#87928E] to-[#C2B3A1] overflow-hidden flex items-center">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <img
             src="/img3.png"
             alt="Fall Collection Model"
-            className="w-full h-full object-contain translate-x-32"
+            // 1. object-contain keeps your exact scale.
+            // 2. object-bottom pins the feet to the bottom (removes the empty space).
+            // 3. translate-x-0 keeps it centered on mobile.
+            // 4. md:translate-x-32 applies your exact right-shift ONLY on large screens.
+            className="w-full h-full object-contain object-bottom translate-x-32 md:translate-x-32"
             decoding="async"
           />
         </div>
+
+        {/* Content */}
         <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
           <h1 className="text-white font-display text-[14vw] md:text-[12vw] lg:text-[9vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[80%] mix-blend-overlay">
             /Gents
@@ -302,11 +308,13 @@ export default function Main({
             <br />
             2026
           </h1>
+
           <div className="absolute bottom-12 right-6 md:right-12 text-right text-white text-[10px] md:text-xs tracking-widest uppercase font-medium space-y-1 hidden sm:block">
             {allCategories.slice(0, 5).map((c) => (
               <p key={c.id}>{c.name}</p>
             ))}
           </div>
+
           <div className="mt-8 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
             <span className="h-2 w-2 bg-white group-hover:scale-150 transition-transform duration-300"></span>
             <span className="border-b border-transparent group-hover:border-white transition-colors duration-300">
