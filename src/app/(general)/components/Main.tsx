@@ -284,7 +284,7 @@ export default function Main({
         onAddToCart={handleModalAddToCart}
       />
 
-      <section className="relative w-full h-[60vh] md:h-[90vh] bg-gradient-to-tr from-[#5E7472] via-[#87928E] to-[#C2B3A1] overflow-hidden flex items-center">
+      <section className="relative w-full h-[60vh] md:h-[90vh] bg-gradient-to-tr from-[#2F3A39] via-[#434B49] to-[#70675B] overflow-hidden flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <img
