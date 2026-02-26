@@ -288,9 +288,9 @@ export default function Main({
       <section className="relative w-full h-[75vh] md:h-[90vh] bg-gradient-to-tr from-[#5E7472] via-[#87928E] to-[#C2B3A1] overflow-hidden flex items-center">
         <div className="absolute inset-0 z-0 flex items-center justify-center">
           <img
-            src="/img1.png"
+            src="/img3.png"
             alt="Fall Collection Model"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain translate-x-32"
             decoding="async"
           />
         </div>
