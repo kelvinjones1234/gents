@@ -5,17 +5,17 @@ import { createPortal } from "react-dom";
 import { X, Lock } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import CartItem from "./CartItem";
+import CheckoutButton from "./CheckoutButton";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation"; // <-- UPDATED IMPORT
 
 export default function CartDrawer() {
-  const { 
-    isOpen, 
-    toggleCart, 
-    items, 
-    updateQuantity, 
-    removeItem, 
-    subtotal 
-  } = useCart();
+  const { data: session } = useSession();
+  const router = useRouter(); // <-- INITIALIZED ROUTER HOOK
   
+  const { isOpen, toggleCart, items, updateQuantity, removeItem, subtotal } =
+    useCart();
+
   const [mounted, setMounted] = useState(false);
 
   // Hydration fix: Ensure we only render the portal on the client
@@ -38,13 +38,19 @@ export default function CartDrawer() {
 
   // Stable handlers using useCallback
   // These prevent the CartItem children from re-rendering unnecessarily
-  const handleUpdateQuantity = useCallback((key: string, qty: number) => {
-    updateQuantity(key, qty);
-  }, [updateQuantity]);
+  const handleUpdateQuantity = useCallback(
+    (key: string, qty: number) => {
+      updateQuantity(key, qty);
+    },
+    [updateQuantity],
+  );
 
-  const handleRemoveItem = useCallback((key: string) => {
-    removeItem(key);
-  }, [removeItem]);
+  const handleRemoveItem = useCallback(
+    (key: string) => {
+      removeItem(key);
+    },
+    [removeItem],
+  );
 
   // Don't render anything until mounted (client-side)
   if (!mounted) return null;
@@ -56,7 +62,9 @@ export default function CartDrawer() {
       {/* 1. BACKDROP OVERLAY */}
       <div
         className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ease-in-out ${
-          isOpen ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"
+          isOpen
+            ? "opacity-100 visible pointer-events-auto"
+            : "opacity-0 invisible pointer-events-none"
         }`}
         onClick={toggleCart}
         aria-hidden="true"
@@ -106,9 +114,9 @@ export default function CartDrawer() {
           ) : (
             <div className="space-y-10">
               {items.map((item) => (
-                <CartItem 
-                  key={item.key} 
-                  item={item} 
+                <CartItem
+                  key={item.key}
+                  item={item}
                   onUpdateQuantity={handleUpdateQuantity}
                   onRemove={handleRemoveItem}
                 />
@@ -133,14 +141,24 @@ export default function CartDrawer() {
                 Shipping & taxes calculated at checkout
               </p>
             </div>
-            <button className="w-full py-4 bg-foreground text-white border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-transparent hover:text-foreground transition-colors duration-300 flex items-center justify-center gap-2 group">
-              <Lock className="w-3 h-3 group-hover:text-foreground transition-colors" />
-              Secure Checkout
-            </button>
+
+            {session?.user?.email ? (
+              <CheckoutButton email={session.user.email} amount={subtotal} />
+            ) : (
+              <button
+                onClick={() => {
+                  toggleCart(); // Close the cart visually before routing
+                  router.push("/account/login");
+                }}
+                className="w-full py-4 bg-foreground text-white border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-transparent hover:text-foreground transition-colors duration-300"
+              >
+                Sign In to Checkout
+              </button>
+            )}
           </div>
         )}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

@@ -18,7 +18,7 @@ const CartItem = memo(({ item, onUpdateQuantity, onRemove }: CartItemProps) => {
       <div className="w-20 h-28 md:w-24 md:h-32 bg-[#FAFAFA] shrink-0 relative border border-gray-100 overflow-hidden group rounded-sm">
         <Image
           src={item.image}
-          alt={item.name}
+          alt={item.name} 
           fill
           sizes="(max-width: 768px) 80px, 96px"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
