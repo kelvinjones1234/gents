@@ -21,7 +21,7 @@ export default function CheckoutButton({ email, amount }: CheckoutButtonProps) {
   const dummyShippingAddress = {
     street: "123 Gents Avenue",
     city: "Lekki",
-    state: "Lagos",
+    state: "Lagos", 
     country: "Nigeria",
     postalCode: "100001",
   };

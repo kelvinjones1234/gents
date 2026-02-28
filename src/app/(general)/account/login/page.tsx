@@ -4,17 +4,22 @@ import { useState } from "react";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation"; // <-- ADDED useSearchParams
 import { useToast } from "@/context/ToastContext";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { toast } = useToast(); // Initialize the toast hook
+  const searchParams = useSearchParams(); // <-- INITIALIZED
+  const { toast } = useToast(); 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State for toggling password
+  const [showPassword, setShowPassword] = useState(false); 
   const [isLoading, setIsLoading] = useState(false);
+
+  // --- NEW: GRAB CALLBACK URL ---
+  // If no callbackUrl is provided, default to the home page ("/")
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,20 +29,19 @@ export default function LoginPage() {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: false, // Prevents automatic redirect so we can handle errors
+        redirect: false, 
       });
 
       if (res?.error) {
-        // Trigger error toast
         toast("Invalid email or password.", "error");
       } else {
-        // Trigger success toast
         toast("Signed in successfully.", "success");
-        router.push("/"); // Redirect to your home or dashboard
-        router.refresh(); // Refresh the router to update the server session
+        
+        // --- NEW: REDIRECT TO CALLBACK URL ---
+        router.push(callbackUrl); 
+        router.refresh(); 
       }
     } catch (err) {
-      // Trigger fallback error toast
       toast("An unexpected error occurred. Please try again.", "error");
     } finally {
       setIsLoading(false);
@@ -47,7 +51,6 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-foreground font-sans antialiased flex flex-col items-center justify-center py-24 px-6">
       <div className="w-full max-w-[440px] bg-white border border-gray-200 p-8 md:p-12 shadow-sm">
-        {/* Heading */}
         <div className="mb-10 text-center">
           <h1 className="font-display text-2xl font-medium tracking-tight uppercase">
             Welcome Back Gent
@@ -56,8 +59,7 @@ export default function LoginPage() {
             Please enter your details to access your account.
           </p>
         </div>
-
-        {/* Form */}
+ 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <input
@@ -73,7 +75,7 @@ export default function LoginPage() {
 
           <div className="relative">
             <input
-              type={showPassword ? "text" : "password"} // Dynamic type
+              type={showPassword ? "text" : "password"} 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="PASSWORD"
@@ -81,12 +83,11 @@ export default function LoginPage() {
               required
               disabled={isLoading}
             />
-            {/* Show/Hide Password Button */}
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-6 top-1/2 -translate-y-1/2 text-muted hover:text-foreground transition-colors focus:outline-none"
-              tabIndex={-1} // Prevents tab from focusing the icon button during form fill
+              tabIndex={-1} 
             >
               {showPassword ? (
                 <EyeOff className="w-4 h-4" strokeWidth={1.5} />
@@ -126,8 +127,9 @@ export default function LoginPage() {
           <p className="text-[10px] font-bold uppercase tracking-widest text-muted">
             Don't have an account?
           </p>
+          {/* Note: If you want Registration to also loop back to the cart, pass the callbackUrl here too */}
           <Link
-            href="/account/register"
+            href={`/account/register${callbackUrl !== "/" ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ""}`}
             className="text-[10px] font-bold uppercase tracking-widest text-foreground border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors"
           >
             Create Account

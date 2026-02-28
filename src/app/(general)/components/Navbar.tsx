@@ -16,7 +16,7 @@ import {
 import { useCart } from "@/context/CartContext"; // <--- 1. Import Context Hook
 
 // Ensure this path matches your project structure
-const NAV_LINKS = [
+const NAV_LINKS = [ 
   { name: "Shop", href: "/shop" },
   { name: "Collections", href: "/collections" },
   { name: "About", href: "/about" },

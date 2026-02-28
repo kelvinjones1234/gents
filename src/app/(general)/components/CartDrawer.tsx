@@ -1,43 +1,65 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
 import { useEffect, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { X, Lock } from "lucide-react";
+import { X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import CartItem from "./CartItem";
-import CheckoutButton from "./CheckoutButton";
+// import CheckoutButton from "./CheckoutButton";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation"; // <-- UPDATED IMPORT
+import { useRouter, useSearchParams, usePathname } from "next/navigation"; // <-- ADDED HOOKS
+
+const CheckoutButton = dynamic(() => import("./CheckoutButton"), { 
+  ssr: false 
+});
 
 export default function CartDrawer() {
   const { data: session } = useSession();
-  const router = useRouter(); // <-- INITIALIZED ROUTER HOOK
-  
+  const router = useRouter();
+  const searchParams = useSearchParams(); // <-- TO READ URL PARAMS
+  const pathname = usePathname(); // <-- TO GET CURRENT PATH
+
   const { isOpen, toggleCart, items, updateQuantity, removeItem, subtotal } =
     useCart();
 
   const [mounted, setMounted] = useState(false);
 
-  // Hydration fix: Ensure we only render the portal on the client
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Optimized Scroll Lock
-  // Prevents the background page from scrolling when the drawer is open
+  // --- NEW: AUTO-OPEN CART LOGIC ---
+  useEffect(() => {
+    if (searchParams.get("openCart") === "true") {
+      // If the cart isn't already open, open it
+      if (!isOpen) {
+        toggleCart(); 
+      }
+
+      // Clean up the URL so refreshing the page doesn't pop the cart open again
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.delete("openCart");
+      const newUrl = newParams.toString()
+        ? `${pathname}?${newParams.toString()}`
+        : pathname;
+
+      router.replace(newUrl, { scroll: false });
+    }
+  }, [searchParams, isOpen, toggleCart, pathname, router]);
+  // ---------------------------------
+
   useEffect(() => {
     if (isOpen) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = "hidden";
-      // Cleanup function restores the original overflow style
       return () => {
         document.body.style.overflow = originalStyle;
       };
     }
   }, [isOpen]);
 
-  // Stable handlers using useCallback
-  // These prevent the CartItem children from re-rendering unnecessarily
   const handleUpdateQuantity = useCallback(
     (key: string, qty: number) => {
       updateQuantity(key, qty);
@@ -52,14 +74,10 @@ export default function CartDrawer() {
     [removeItem],
   );
 
-  // Don't render anything until mounted (client-side)
   if (!mounted) return null;
 
-  // Render via Portal to attach to document.body
-  // This avoids z-index issues with parent containers
   return createPortal(
     <div className="relative z-[9999]">
-      {/* 1. BACKDROP OVERLAY */}
       <div
         className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ease-in-out ${
           isOpen
@@ -70,7 +88,6 @@ export default function CartDrawer() {
         aria-hidden="true"
       />
 
-      {/* 2. DRAWER PANEL */}
       <div
         className={`fixed top-0 right-0 h-[100dvh] w-full md:w-[480px] bg-white text-foreground shadow-2xl transform transition-transform duration-500 cubic-bezier(0.25, 1, 0.5, 1) flex flex-col border-l border-gray-200 ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -79,7 +96,6 @@ export default function CartDrawer() {
         aria-modal="true"
         aria-label="Shopping Cart"
       >
-        {/* HEADER */}
         <div className="flex items-center justify-between p-6 md:p-8 border-b border-gray-200 shrink-0">
           <div className="flex items-center gap-2">
             <h2 className="text-[11px] font-bold tracking-widest uppercase text-foreground">
@@ -97,7 +113,6 @@ export default function CartDrawer() {
           </button>
         </div>
 
-        {/* CONTENT AREA */}
         <div className="flex-1 overflow-y-auto px-6 md:px-8 py-8 hide-scrollbar">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full space-y-4 animate-in fade-in duration-500">
@@ -125,7 +140,6 @@ export default function CartDrawer() {
           )}
         </div>
 
-        {/* FOOTER */}
         {items.length > 0 && (
           <div className="bg-white border-t border-gray-200 p-6 md:p-8 space-y-6 shrink-0 safe-area-bottom">
             <div className="space-y-2">
@@ -147,8 +161,16 @@ export default function CartDrawer() {
             ) : (
               <button
                 onClick={() => {
-                  toggleCart(); // Close the cart visually before routing
-                  router.push("/account/login");
+                  toggleCart();
+
+                  // --- NEW: PASS CALLBACK URL WITH THE OPENCART TRIGGER ---
+                  // This tells the login page exactly where to send the user back to
+                  const currentUrl = pathname;
+                  const callbackUrl = encodeURIComponent(
+                    `${currentUrl}?openCart=true`,
+                  );
+
+                  router.push(`/account/login?callbackUrl=${callbackUrl}`);
                 }}
                 className="w-full py-4 bg-foreground text-white border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-transparent hover:text-foreground transition-colors duration-300"
               >

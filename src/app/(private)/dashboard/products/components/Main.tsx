@@ -405,7 +405,7 @@ export default function Main() {
               </table>
             </div>
 
-            {/* MOBILE VIEW */}
+            {/* MOBILE VIEW */} 
             <div className="lg:hidden flex flex-col divide-y divide-gray-100">
               {paginatedProducts.map((product) => {
                 const totalStock = getProductStock(product);

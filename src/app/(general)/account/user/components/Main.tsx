@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { signOut, useSession } from "next-auth/react";
 import {
   Package,
   MapPin,
@@ -9,75 +10,59 @@ import {
   ChevronRight,
   Clock,
   ArrowRight,
+  Loader2,
 } from "lucide-react";
-
-// --- Mock Data ---
-const MOCK_ORDERS = [
-  {
-    id: "#ORD-2026-0892",
-    date: "OCT 24, 2026",
-    total: 145000,
-    status: "DELIVERED",
-    items: [
-      {
-        name: "THE STEALTH BACKPACK",
-        variant: "MATTE BLACK",
-        price: 145000,
-        image: "/img1.png",
-      },
-    ],
-  },
-  {
-    id: "#ORD-2026-0714",
-    date: "SEP 12, 2026",
-    total: 85000,
-    status: "PROCESSING",
-    items: [
-      {
-        name: "TITANIUM EDC KNIFE",
-        variant: "SILVER",
-        price: 85000,
-        image:
-          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800",
-      },
-    ],
-  },
-];
-
-const MOCK_ADDRESSES = [
-  {
-    id: "1",
-    firstName: "John",
-    lastName: "Doe",
-    street: "14B Admiralty Way, Lekki Phase 1",
-    city: "Lagos",
-    state: "LA",
-    zip: "105102",
-    country: "Nigeria",
-    isDefault: true,
-  },
-  {
-    id: "2",
-    firstName: "John",
-    lastName: "Doe",
-    street: "Block 4, Flat 2, 1004 Estates",
-    city: "Victoria Island",
-    state: "LA",
-    zip: "101241",
-    country: "Nigeria",
-    isDefault: false,
-  },
-];
+import { getUserProfileData } from "@/app/actions/general/account";
+import { useToast } from "@/context/ToastContext";
 
 export default function Main() {
-  const [activeTab, setActiveTab] = useState<
-    "orders" | "addresses" | "support"
-  >("orders");
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState<"orders" | "addresses" | "support">("orders");
 
-  const handleLogout = () => {
-    // Implement actual logout logic here
-    console.log("User logged out");
+  // --- DYNAMIC STATE ---
+  const [userData, setUserData] = useState<{
+    fullName: string;
+    orders: any[];
+    addresses: any[];
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const result = await getUserProfileData();
+        if (result.success && result.user) {
+          setUserData(result.user as any);
+        } else {
+          toast(result.error || "Failed to load account data.", "error");
+        }
+      } catch (error) {
+        toast("An unexpected error occurred.", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [toast]);
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/account/login" });
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center">
+        <Loader2 className="w-8 h-8 text-foreground animate-spin mb-4" />
+        <p className="text-[10px] font-bold uppercase tracking-widest text-muted">Loading your account...</p>
+      </div>
+    );
+  }
+
+  // Fallback name if DB data isn't loaded
+  const firstName = userData?.fullName?.split(" ")[0] || session?.user?.name?.split(" ")[0] || "Gent";
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans antialiased">
@@ -90,7 +75,7 @@ export default function Main() {
           <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium leading-[0.9] tracking-tight text-foreground uppercase">
             Welcome Back,
             <br />
-            John
+            {firstName}
           </h1>
         </div>
       </section>
@@ -174,81 +159,88 @@ export default function Main() {
                   Order History
                 </h2>
 
-                {MOCK_ORDERS.length === 0 ? (
-                  <p className="text-sm text-muted leading-relaxed">
+                {!userData?.orders || userData.orders.length === 0 ? (
+                  <p className="text-[10px] uppercase tracking-widest text-muted leading-relaxed">
                     You haven't placed any orders yet.
                   </p>
                 ) : (
                   <div className="space-y-6">
-                    {MOCK_ORDERS.map((order) => (
-                      <div
-                        key={order.id}
-                        className="border border-gray-200 bg-white group hover:border-foreground transition-colors duration-300"
-                      >
-                        {/* Order Header */}
-                        <div className="p-6 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#FAFAFA]">
-                          <div className="flex flex-wrap items-center gap-6 text-[10px] uppercase font-bold tracking-widest text-muted">
-                            <div>
-                              <span className="block text-foreground mb-1">
-                                Order Number
-                              </span>
-                              {order.id}
+                    {userData.orders.map((order) => {
+                      const firstItem = order.items[0];
+                      const displayImage = firstItem?.product?.images?.[0] || "https://placehold.co/150x150";
+                      
+                      return (
+                        <div
+                          key={order.id}
+                          className="border border-gray-200 bg-white group hover:border-foreground transition-colors duration-300"
+                        >
+                          {/* Order Header */}
+                          <div className="p-6 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#FAFAFA]">
+                            <div className="flex flex-wrap items-center gap-6 text-[10px] uppercase font-bold tracking-widest text-muted">
+                              <div>
+                                <span className="block text-foreground mb-1">
+                                  Order Number
+                                </span>
+                                {order.orderNumber}
+                              </div>
+                              <div>
+                                <span className="block text-foreground mb-1">
+                                  Date Placed
+                                </span>
+                                {new Date(order.createdAt).toLocaleDateString()}
+                              </div>
+                              <div>
+                                <span className="block text-foreground mb-1">
+                                  Total Amount
+                                </span>
+                                <span className="text-foreground">
+                                  ₦{order.totalAmount.toLocaleString()}
+                                </span>
+                              </div>
                             </div>
-                            <div>
-                              <span className="block text-foreground mb-1">
-                                Date Placed
-                              </span>
-                              {order.date}
-                            </div>
-                            <div>
-                              <span className="block text-foreground mb-1">
-                                Total Amount
-                              </span>
-                              <span className="text-foreground">
-                                ₦{order.total.toLocaleString()}
-                              </span>
+
+                            <div className="flex items-center gap-2 px-3 py-1.5 border border-gray-200 text-[9px] font-bold uppercase tracking-widest bg-white">
+                              <span
+                                className={`w-1.5 h-1.5 rounded-full ${order.status === "DELIVERED" ? "bg-green-500" : order.status === "CANCELLED" ? "bg-red-500" : "bg-orange-500 animate-pulse"}`}
+                              ></span>
+                              {order.status}
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-2 px-3 py-1.5 border border-gray-200 text-[9px] font-bold uppercase tracking-widest bg-white">
-                            <span
-                              className={`w-1.5 h-1.5 rounded-full ${order.status === "DELIVERED" ? "bg-green-500" : "bg-orange-500 animate-pulse"}`}
-                            ></span>
-                            {order.status}
+                          {/* Order Items */}
+                          <div className="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                            <div className="flex items-center gap-6">
+                              <div className="w-20 h-24 bg-gray-100 flex-shrink-0 border border-gray-200">
+                                <img
+                                  src={displayImage}
+                                  alt={firstItem?.product?.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                              <div>
+                                <h3 className="text-[11px] font-bold uppercase tracking-widest text-foreground leading-relaxed line-clamp-1">
+                                  {firstItem?.product?.name || "Product Unavailable"}
+                                </h3>
+                                {(firstItem?.variant?.color || firstItem?.variant?.size) && (
+                                  <p className="text-[9px] uppercase tracking-widest text-muted mt-1">
+                                    {firstItem.variant.color} {firstItem.variant.color && firstItem.variant.size ? '/' : ''} {firstItem.variant.size}
+                                  </p>
+                                )}
+                                {order.items.length > 1 && (
+                                  <p className="text-[9px] font-bold text-foreground mt-2">
+                                    + {order.items.length - 1} MORE ITEM(S)
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+
+                            <button className="flex items-center justify-center gap-2 w-full md:w-auto px-8 py-4 bg-transparent border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300">
+                              View Order
+                            </button>
                           </div>
                         </div>
-
-                        {/* Order Items */}
-                        <div className="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                          <div className="flex items-center gap-6">
-                            <div className="w-20 h-24 bg-[#EFEFEF] flex-shrink-0">
-                              <img
-                                src={order.items[0].image}
-                                alt={order.items[0].name}
-                                className="w-full h-full object-cover mix-blend-multiply"
-                              />
-                            </div>
-                            <div>
-                              <h3 className="text-[11px] font-bold uppercase tracking-widest text-foreground leading-relaxed line-clamp-1">
-                                {order.items[0].name}
-                              </h3>
-                              <p className="text-[10px] uppercase tracking-widest text-muted mt-1">
-                                {order.items[0].variant}
-                              </p>
-                              {order.items.length > 1 && (
-                                <p className="text-[10px] text-muted mt-2 font-medium">
-                                  + {order.items.length - 1} MORE ITEM(S)
-                                </p>
-                              )}
-                            </div>
-                          </div>
-
-                          <button className="flex items-center justify-center gap-2 w-full md:w-auto px-8 py-4 bg-transparent border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300">
-                            View Order
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -261,53 +253,60 @@ export default function Main() {
                   <h2 className="font-display text-2xl md:text-3xl tracking-tight uppercase">
                     Saved Addresses
                   </h2>
-                  <button className="px-6 py-3 bg-foreground text-white text-[10px] font-bold uppercase tracking-widest hover:bg-black transition-colors duration-300">
+                  <button className="px-6 py-3 border border-foreground bg-foreground text-white text-[10px] font-bold uppercase tracking-widest hover:bg-transparent hover:text-foreground transition-colors duration-300">
                     Add New Address
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {MOCK_ADDRESSES.map((address) => (
-                    <div
-                      key={address.id}
-                      className="border border-gray-200 p-6 flex flex-col relative group hover:border-foreground transition-colors duration-300"
-                    >
-                      {address.isDefault && (
-                        <span className="absolute top-0 right-0 bg-foreground text-white px-3 py-1 text-[9px] font-bold uppercase tracking-widest">
-                          Default
-                        </span>
-                      )}
+                {!userData?.addresses || userData.addresses.length === 0 ? (
+                  <p className="text-[10px] uppercase tracking-widest text-muted leading-relaxed">
+                    You haven't saved any addresses yet.
+                  </p>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {userData.addresses.map((address) => (
+                      <div
+                        key={address.id}
+                        className="border border-gray-200 p-6 flex flex-col relative group hover:border-foreground transition-colors duration-300 bg-[#FAFAFA] hover:bg-white"
+                      >
+                        {address.isDefault && (
+                          <span className="absolute top-0 right-0 bg-foreground text-white px-3 py-1 text-[8px] font-bold uppercase tracking-widest">
+                            Default
+                          </span>
+                        )}
 
-                      <h3 className="text-xs font-bold uppercase tracking-widest text-foreground mb-4">
-                        {address.firstName} {address.lastName}
-                      </h3>
+                        <h3 className="text-[11px] font-bold uppercase tracking-widest text-foreground mb-4">
+                          {address.tag || userData.fullName}
+                        </h3>
 
-                      <div className="text-sm text-muted leading-relaxed flex-1 space-y-1">
-                        <p>{address.street}</p>
-                        <p>
-                          {address.city}, {address.state} {address.zip}
-                        </p>
-                        <p>{address.country}</p>
+                        <div className="text-[10px] uppercase tracking-widest text-muted leading-relaxed flex-1 space-y-1">
+                          <p>{address.street}</p>
+                          <p>
+                            {address.city}, {address.state} {address.postalCode}
+                          </p>
+                          <p>{address.country}</p>
+                        </div>
+
+                        <div className="mt-8 flex items-center gap-4 text-[9px] font-bold uppercase tracking-widest">
+                          <button className="border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors">
+                            Edit
+                          </button>
+                          <button className="border-b border-transparent text-muted pb-0.5 hover:text-red-600 hover:border-red-600 transition-colors">
+                            Delete
+                          </button>
+                        </div>
                       </div>
-
-                      <div className="mt-8 flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest">
-                        <button className="border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors">
-                          Edit
-                        </button>
-                        <button className="border-b border-transparent text-muted pb-0.5 hover:text-red-600 hover:border-red-600 transition-colors">
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
-            {/* --- SUPPORT TAB --- */}
+            {/* --- SUPPORT TAB (Unchanged) --- */}
             {activeTab === "support" && (
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <h2 className="font-display text-2xl md:text-3xl tracking-tight uppercase mb-8 pb-4 border-b border-gray-200">
+                {/* ... existing support tab content ... */}
+                 <h2 className="font-display text-2xl md:text-3xl tracking-tight uppercase mb-8 pb-4 border-b border-gray-200">
                   Client Services
                 </h2>
 
@@ -345,7 +344,6 @@ export default function Main() {
                   </div>
                 </div>
 
-                {/* FAQ Quick Links */}
                 <div>
                   <h3 className="text-[10px] font-bold uppercase tracking-widest text-muted mb-6">
                     Frequently Asked Questions
