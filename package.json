@@ -19,6 +19,7 @@
     "next": "^15.1.6",
     "next-auth": "^4.24.7",
     "next-cloudinary": "^6.17.5",
+    "nextjs-toploader": "^3.9.17",
     "nodemailer": "^7.0.13",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -45,10 +46,9 @@
     "seed": "tsx prisma/seed.ts"
   },
   "overrides": {
-  "react-paystack": {
-    "react": "$react",
-    "react-dom": "$react-dom"
+    "react-paystack": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
-}
-
 }
