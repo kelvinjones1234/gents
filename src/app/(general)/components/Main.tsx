@@ -10,7 +10,6 @@ import {
 } from "react";
 import { Product, Category, ProductVariant } from "@prisma/client";
 import { getProductsByCategory } from "@/app/actions/general/storefront";
-import Link from "next/link";
 import OptionModal from "./OptionsModal";
 import { useCart } from "@/context/CartContext";
 import { ProductCard } from "./ProductCard";
@@ -332,12 +331,12 @@ export default function Main({
             New Arrivals
           </h2>
           <div className="flex gap-4">
-            <Link
+            <a
               href="/new-arrivals"
               className="px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
             >
               More
-            </Link>
+            </a>
           </div>
         </div>
         <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
@@ -399,12 +398,12 @@ export default function Main({
             Trending Now
           </h2>
           <div className="flex gap-4">
-            <Link
+            <a
               href="/collections/new-arrivals"
               className="px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
             >
               More
-            </Link>
+            </a>
           </div>
         </div>
         <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
@@ -465,12 +464,12 @@ export default function Main({
             Flash Sale
           </h2>
           <div className="flex gap-4">
-            <Link
+            <a
               href="/hot-deals"
               className="px-6 py-3 border border-gray-200 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground hover:border-foreground hover:bg-foreground hover:text-white transition-all duration-300 ease-in-out"
             >
               More
-            </Link>
+            </a>
           </div>
         </div>
         <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">

@@ -1,7 +1,6 @@
 "use client";
 
 import { memo } from "react";
-import Link from "next/link"; // 1. Import Link from Next.js
 import { Product, Category, ProductVariant } from "@prisma/client";
 
 type ProductWithRelations = Product & {
@@ -29,7 +28,7 @@ export const ProductCard = memo(({
 
   return (
     // 2. Wrap the card in a Link component. Ensure item.slug exists in your Prisma schema.
-    <Link 
+    <a 
       href={`/products/${item.slug}`} 
       className="w-full group cursor-pointer flex flex-col transform-gpu"
     >
@@ -93,7 +92,7 @@ export const ProductCard = memo(({
           )}
         </div>
       </div>
-    </Link>
+    </a>
   );
 });
 
