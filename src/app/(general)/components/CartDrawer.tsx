@@ -1,25 +1,24 @@
 "use client";
 
 import dynamic from "next/dynamic";
-
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import CartItem from "./CartItem";
-// import CheckoutButton from "./CheckoutButton";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation"; // <-- ADDED HOOKS
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 const CheckoutButton = dynamic(() => import("./CheckoutButton"), { 
   ssr: false 
 });
 
-export default function CartDrawer() {
+// 1. Rename your main function to an internal component
+function CartDrawerContent() {
   const { data: session } = useSession();
   const router = useRouter();
-  const searchParams = useSearchParams(); // <-- TO READ URL PARAMS
-  const pathname = usePathname(); // <-- TO GET CURRENT PATH
+  const searchParams = useSearchParams(); 
+  const pathname = usePathname(); 
 
   const { isOpen, toggleCart, items, updateQuantity, removeItem, subtotal } =
     useCart();
@@ -30,15 +29,13 @@ export default function CartDrawer() {
     setMounted(true);
   }, []);
 
-  // --- NEW: AUTO-OPEN CART LOGIC ---
+  // --- AUTO-OPEN CART LOGIC ---
   useEffect(() => {
     if (searchParams.get("openCart") === "true") {
-      // If the cart isn't already open, open it
       if (!isOpen) {
         toggleCart(); 
       }
 
-      // Clean up the URL so refreshing the page doesn't pop the cart open again
       const newParams = new URLSearchParams(searchParams.toString());
       newParams.delete("openCart");
       const newUrl = newParams.toString()
@@ -48,7 +45,6 @@ export default function CartDrawer() {
       router.replace(newUrl, { scroll: false });
     }
   }, [searchParams, isOpen, toggleCart, pathname, router]);
-  // ---------------------------------
 
   useEffect(() => {
     if (isOpen) {
@@ -163,8 +159,6 @@ export default function CartDrawer() {
                 onClick={() => {
                   toggleCart();
 
-                  // --- NEW: PASS CALLBACK URL WITH THE OPENCART TRIGGER ---
-                  // This tells the login page exactly where to send the user back to
                   const currentUrl = pathname;
                   const callbackUrl = encodeURIComponent(
                     `${currentUrl}?openCart=true`,
@@ -182,5 +176,15 @@ export default function CartDrawer() {
       </div>
     </div>,
     document.body,
+  );
+}
+
+// 2. Export a default component that wraps the logic in Suspense
+export default function CartDrawer() {
+  return (
+    // Fallback is null so the drawer remains invisible while Next.js loads the query params
+    <Suspense fallback={null}>
+      <CartDrawerContent />
+    </Suspense>
   );
 }
