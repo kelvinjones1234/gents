@@ -3,22 +3,20 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState, useCallback, Suspense } from "react";
 import { createPortal } from "react-dom";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import CartItem from "./CartItem";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-
-const CheckoutButton = dynamic(() => import("./CheckoutButton"), { 
-  ssr: false 
-});
+import Link from "next/link";
 
 // 1. Rename your main function to an internal component
 function CartDrawerContent() {
   const { data: session } = useSession();
   const router = useRouter();
-  const searchParams = useSearchParams(); 
-  const pathname = usePathname(); 
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const { isOpen, toggleCart, items, updateQuantity, removeItem, subtotal } =
     useCart();
@@ -33,7 +31,7 @@ function CartDrawerContent() {
   useEffect(() => {
     if (searchParams.get("openCart") === "true") {
       if (!isOpen) {
-        toggleCart(); 
+        toggleCart();
       }
 
       const newParams = new URLSearchParams(searchParams.toString());
@@ -152,25 +150,24 @@ function CartDrawerContent() {
               </p>
             </div>
 
-            {session?.user?.email ? (
-              <CheckoutButton email={session.user.email} amount={subtotal} />
-            ) : (
-              <button
-                onClick={() => {
-                  toggleCart();
-
-                  const currentUrl = pathname;
-                  const callbackUrl = encodeURIComponent(
-                    `${currentUrl}?openCart=true`,
-                  );
-
-                  router.push(`/account/login?callbackUrl=${callbackUrl}`);
-                }}
-                className="w-full py-4 bg-foreground text-white border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-transparent hover:text-foreground transition-colors duration-300"
-              >
-                Sign In to Checkout
-              </button>
-            )}
+            <button
+              onClick={() => {
+                setIsNavigating(true);
+                // Optional: toggleCart() if you want the drawer to close behind the scenes
+                router.push("/checkout");
+              }}
+              disabled={isNavigating}
+              className="w-full py-4 flex items-center justify-center gap-2 bg-foreground text-white border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-transparent hover:text-foreground transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isNavigating ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Loading...
+                </>
+              ) : (
+                "Checkout"
+              )}
+            </button>
           </div>
         )}
       </div>

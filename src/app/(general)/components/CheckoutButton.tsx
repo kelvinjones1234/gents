@@ -10,7 +10,7 @@ import { verifyAndCreateOrder } from "@/app/actions/general/checkout";
 interface CheckoutButtonProps {
   email: string; // Pass the logged-in user's email
   amount: number; // The subtotal
-}
+} 
 
 export default function CheckoutButton({ email, amount }: CheckoutButtonProps) {
   const [isProcessing, setIsProcessing] = useState(false);

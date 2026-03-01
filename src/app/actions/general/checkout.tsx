@@ -25,7 +25,7 @@ export async function verifyAndCreateOrder(
     // 2. Verify the transaction directly with Paystack
     const paystackRes = await fetch(
       `https://api.paystack.co/transaction/verify/${reference}`,
-      {
+      { 
         method: "GET",
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PAYSTACK_SECRET_KEY}`,

@@ -9,7 +9,7 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
-  Star,
+  Star, 
 } from "lucide-react";
 import { useState, useRef, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
@@ -247,13 +247,31 @@ export default function Main({
     toggleCart();
   };
 
-  // 2. Buy It Now (Adds to cart & redirects to checkout)
   const handleBuyNow = () => {
-    if (product.hasVariants && !selectedVariant) return;
-    
-    handleAddToCart();
-    router.push("/checkout"); // Update this to your actual checkout route
-  };
+  if (product.hasVariants && !selectedVariant) return;
+
+  const variantName = selectedVariant
+    ? `${selectedVariant.color || ""} ${selectedVariant.size || ""}`.trim()
+    : undefined;
+
+  const itemImage = (selectedVariant as any)?.image || product.images[0] || "/placeholder.png";
+
+  addItem({
+    productId: product.id,
+    variantId: selectedVariant?.id,
+    name: product.name,
+    variantName: variantName,
+    price: currentPrice,
+    image: itemImage,
+    quantity: quantity,
+    maxStock: selectedVariant ? selectedVariant.stock : product.stock,
+  });
+
+  // Use setTimeout to allow cart state to update before navigating
+  setTimeout(() => {
+    router.push("/checkout");
+  }, 0);
+};
 
   // 3. Quick Add for Related Products
   const handleQuickAdd = useCallback(
@@ -685,3 +703,5 @@ export default function Main({
     </div>
   );
 }
+
+
