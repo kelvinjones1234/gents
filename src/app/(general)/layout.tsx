@@ -92,8 +92,8 @@
 
 "use client"; 
 
-import React, { Suspense, useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import React, { Suspense, useState, useEffect, useCallback } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import Navbar from "@/app/(general)/components/Navbar";
 import { ToastProvider } from "@/context/ToastContext";
 import { CartProvider } from "@/context/CartContext"; 
@@ -107,49 +107,65 @@ export default function GeneralLayout({
 }) {
   const [isNavigating, setIsNavigating] = useState(false);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  // Turn off the blur whenever the URL changes
+  // 1. Reset loading state whenever the URL actually changes
   useEffect(() => {
     setIsNavigating(false);
-  }, [pathname]);
+  }, [pathname, searchParams]);
 
-  const handleLinkClick = (e: React.MouseEvent) => {
+  // 2. Handle the "Back" and "Forward" buttons specifically
+  useEffect(() => {
+    const handlePopState = () => {
+      setIsNavigating(false);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const handleLinkClick = useCallback((e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
     const link = target.closest("a");
     
-    // Trigger blur if it's an internal link and not a hash/anchor
-    if (link && link.href.includes(window.location.origin) && !link.hash) {
-      setIsNavigating(true);
+    // Only trigger if it's a valid internal link and not opening in a new tab
+    if (
+      link && 
+      link.href.includes(window.location.origin) && 
+      !link.hash &&
+      link.target !== "_blank" &&
+      !e.metaKey && !e.ctrlKey // Allow cmd/ctrl + click to work normally
+    ) {
+      // Don't trigger if clicking the same page we're already on
+      if (link.href !== window.location.href) {
+        setIsNavigating(true);
+      }
     }
-  };
+  }, []);
 
   return (
     <ToastProvider>
       <CartProvider>
         {/* THE BLUR OVERLAY */}
         {isNavigating && (
-          <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/20 backdrop-blur-md animate-in fade-in duration-300">
-            <Loader2 className="w-8 h-8 animate-spin text-foreground/40 stroke-[1.5px]" />
-            <span className="mt-4 text-[10px] font-bold uppercase tracking-[0.4em] text-foreground/60">
-              Gent / Loading
-            </span>
+          <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/40 backdrop-blur-md animate-in fade-in duration-200">
+            <div className="flex flex-col items-center gap-4">
+              <Loader2 className="w-8 h-8 animate-spin text-foreground/40 stroke-[1.5px]" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-foreground/60">
+                Gent / Loading
+              </span>
+            </div>
           </div>
         )}
 
         <div 
-          className={`min-h-screen bg-background text-foreground relative transition-all duration-500 ${isNavigating ? "opacity-50" : "opacity-100"}`}
+          className="min-h-screen bg-background text-foreground relative"
           onClickCapture={handleLinkClick}
         >
           <Navbar />
           
-          <Suspense 
-            fallback={
-              <div className="min-h-screen flex items-center justify-center text-[10px] font-bold uppercase tracking-widest text-muted">
-                Loading...
-              </div>
-            }
-          >
-            <main className="">{children}</main>
+          <Suspense fallback={null}>
+            <main>{children}</main>
           </Suspense>
 
           <CartDrawer />
