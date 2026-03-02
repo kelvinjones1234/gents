@@ -28,7 +28,6 @@ export default function Main() {
           </h1>
 
           <div className="mt-12 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest group self-start">
-            <span className="h-3 w-3 bg-white transition-transform duration-300"></span>
             <span className="border-b border-transparent transition-colors duration-300">
               Discover Our Vision
             </span>
