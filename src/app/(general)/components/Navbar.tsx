@@ -18,6 +18,7 @@ import {
   LayoutDashboard,
   Loader2,
 } from "lucide-react";
+import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { ProductCard } from "@/app/(general)/components/ProductCard"; // Adjust path if needed
 import OptionModal from "@/app/(general)/components/OptionsModal"; // Adjust path if needed
@@ -194,7 +195,7 @@ export default function Navbar() {
       {/* ==========================================
           MAIN NAVBAR
           ========================================== */}
-      <nav className="sticky top-0 z-40 w-full bg-background/90 backdrop-blur-md text-foreground border-b border-gray-200 mx-auto py-4 uppercase tracking-wide text-xs font-medium font-sans transition-colors duration-300">
+      <nav className="sticky top-0 z-40 w-full bg-background/90 backdrop-blur-md text-foreground border-b border-gray-200 mx-auto py-2 uppercase tracking-wide text-xs font-medium font-sans transition-colors duration-300">
         <div className="container-main mx-auto flex justify-between items-center w-full px-5 md:px-12 relative z-50">
           {/* LEFT: Mobile (Menu + Search) / Desktop (Links) */}
           <div className="flex items-center justify-start w-1/3 gap-4 md:gap-8">
@@ -233,7 +234,13 @@ export default function Navbar() {
               onClick={handleSearchClose}
               className="font-display text-xl md:text-2xl font-bold tracking-widest text-foreground"
             >
-              GENTS
+              <Image
+                src="/6.png"
+                alt="Gents Collection Store Logo"
+                width={80}
+                height={10}
+                className="object-contain"
+              />
             </Link>
           </div>
 

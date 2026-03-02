@@ -311,8 +311,8 @@ export default function Main({
           </div>
         </div>
         <div className="mt-8 px-6 md:px-12 items-center gap-6 border-t border-gray-200 pt-8">
-          <div className="container-main flex flex-col md:flex-row justify-between">
-            <p className="text-xs text-muted max-w-sm leading-relaxed text-center md:text-start">
+          <div className="container-main flex flex-col md:flex-row justify-between md:items-center">
+            <p className="text-xs text-muted max-w-sm mx-auto leading-relaxed text-center md:text-start">
               A hand-selected selection of the best selling products in our
               online store. Discover the favorite pieces of our community.
             </p>
