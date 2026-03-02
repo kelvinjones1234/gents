@@ -2,23 +2,28 @@ import React from 'react';
 import Main from './components/Main';
 import { getPaginatedPayments } from '@/app/actions/admin/payment';
 
+// 1. Type searchParams as a Promise
 export default async function PaymentPage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>; 
 }) {
-  const currentPage = Number(searchParams.page) || 1;
+  // 2. Await the searchParams before using them
+  const resolvedSearchParams = await searchParams;
+  
+  // 3. Now you can safely read the page number
+  const currentPage = Number(resolvedSearchParams.page) || 1;
   const limit = 10;
 
   // Fetch paginated data
   const data = await getPaginatedPayments(currentPage, limit);
 
-  // 1. Setup default fallback values
+  // Setup default fallback values
   let payments: any[] = [];
   let safeCurrentPage = 1;
   let safeTotalPages = 1;
 
-  // 2. Type Narrowing: If successful, TypeScript now strictly knows these properties exist
+  // Type Narrowing
   if (data.success && data.payments) {
     payments = data.payments;
     safeCurrentPage = data.currentPage;

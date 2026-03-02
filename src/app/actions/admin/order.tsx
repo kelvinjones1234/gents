@@ -17,7 +17,7 @@ export async function getOrders() {
   }
 }
 
-export async function getOrderById(id: string) {
+export async function getOrderById(id: string) { 
   try {
     const order = await prisma.order.findUnique({
       where: { id },
