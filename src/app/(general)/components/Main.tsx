@@ -597,17 +597,18 @@ export default function Main({
           </div>
           <div className="md:w-3/4 max-w-5xl">
             <p className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-medium leading-[1.2] text-muted uppercase tracking-tight">
-              We unite a passion for premium design with a{" "}
+              GENTSCOLLECTIONSTORE IS THE STANDARD FOR THE{" "}
               <span className="text-foreground transition-colors duration-300 hover:text-[#5E7472] cursor-default">
-                modern lifestyle mindset
+                VISION-DRIVEN MODERN MAN
               </span>
-              . We stand for durable apparel and tools that{" "}
+              . WE CURATE REFINED MENSWEAR, ACCESSORIES, AND ESSENTIALS THAT
+              EMBODY{" "}
               <span className="text-foreground transition-colors duration-300 hover:text-[#5E7472] cursor-default">
-                go beyond seasons
+                CALM CONFIDENCE
               </span>
-              . Instead of following fleeting trends, we focus on{" "}
+              , INTENTIONAL LIVING, AND{" "}
               <span className="text-foreground transition-colors duration-300 hover:text-[#5E7472] cursor-default">
-                timeless silhouettes
+                TIMELESS STYLE
               </span>
               .
             </p>
