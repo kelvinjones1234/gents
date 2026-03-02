@@ -310,17 +310,19 @@ export default function Main({
             ))}
           </div>
         </div>
-        <div className="mt-8 container-main mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-gray-200 pt-8">
-          <p className="text-xs text-muted max-w-sm leading-relaxed text-center md:text-start">
-            A hand-selected selection of the best selling products in our online
-            store. Discover the favorite pieces of our community.
-          </p>
-          <a
-            href="/all-products"
-            className="px-10 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
-          >
-            View All Products
-          </a>
+        <div className="mt-8 px-6 md:px-12 items-center gap-6 border-t border-gray-200 pt-8">
+          <div className="container-main flex flex-col md:flex-row justify-between">
+            <p className="text-xs text-muted max-w-sm leading-relaxed text-center md:text-start">
+              A hand-selected selection of the best selling products in our
+              online store. Discover the favorite pieces of our community.
+            </p>
+            <a
+              href="/all-products"
+              className="px-10 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
+            >
+              View All Products
+            </a>
+          </div>
         </div>
       </section>
 
@@ -341,7 +343,10 @@ export default function Main({
         </div>
         <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
           {newArrivals.map((item) => (
-            <div key={item.id} className="min-w-[160px] sm:min-w-[240px] md:min-w-[280px] shrink-0 snap-start">
+            <div
+              key={item.id}
+              className="min-w-[160px] sm:min-w-[240px] md:min-w-[280px] shrink-0 snap-start"
+            >
               <ProductCard
                 item={item}
                 badgeLabel="New"
@@ -408,11 +413,11 @@ export default function Main({
         </div>
         <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
           {topSellers.map((item) => (
-            <div key={item.id} className="min-w-[160px] sm:min-w-[240px] md:min-w-[280px] shrink-0 snap-start">
-              <ProductCard
-                item={item}
-                onQuickAdd={handleQuickAdd}
-              />
+            <div
+              key={item.id}
+              className="min-w-[160px] sm:min-w-[240px] md:min-w-[280px] shrink-0 snap-start"
+            >
+              <ProductCard item={item} onQuickAdd={handleQuickAdd} />
             </div>
           ))}
         </div>
@@ -474,7 +479,10 @@ export default function Main({
         </div>
         <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
           {hotDeals.map((item) => (
-            <div key={item.id} className="min-w-[160px] sm:min-w-[240px] md:min-w-[280px] shrink-0 snap-start">
+            <div
+              key={item.id}
+              className="min-w-[160px] sm:min-w-[240px] md:min-w-[280px] shrink-0 snap-start"
+            >
               <ProductCard
                 item={item}
                 badgeLabel="SALE"
@@ -563,7 +571,10 @@ export default function Main({
               </div>
             ) : (
               displayedProducts.map((item) => (
-                <div key={item.id} className="min-w-[160px] sm:min-w-[240px] md:min-w-[280px] shrink-0 snap-start">
+                <div
+                  key={item.id}
+                  className="min-w-[160px] sm:min-w-[240px] md:min-w-[280px] shrink-0 snap-start"
+                >
                   <ProductCard
                     item={item}
                     badgeLabel={item.isNewArrival ? "New" : undefined}
@@ -573,19 +584,6 @@ export default function Main({
               ))
             )}
           </div>
-        </div>
-
-        <div className="mt-8 container-main mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-gray-200 pt-8">
-          <p className="text-xs text-muted max-w-sm leading-relaxed text-center md:text-start">
-            A hand-selected selection of the best selling products in our online
-            store. Discover the favorite pieces of our community.
-          </p>
-          <a
-            href="/collections/all"
-            className="px-10 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
-          >
-            View All Products
-          </a>
         </div>
       </section>
 
