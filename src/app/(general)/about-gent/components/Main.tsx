@@ -9,8 +9,13 @@ export default function Main() {
       {/* 1. HERO SECTION */}
       <section className="relative w-full h-[60vh] md:h-[80vh] bg-gradient-to-tr from-[#1A1C1C] via-[#2F3A39] to-[#4A4742] overflow-hidden flex items-center">
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-overlay">
-          {/* Contextual image tag for layout context */}
-          
+          {/* HERO IMAGE */}
+          <img
+            src="/about1.jpg"
+            alt="GentsCollectionStore Boutique"
+            className="w-full h-full object-cover object-center"
+            decoding="async"
+          />
         </div>
 
         <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
@@ -77,9 +82,16 @@ export default function Main() {
               </a>
             </div>
           </div>
-          <div className="order-1 md:order-2 aspect-[4/5] overflow-hidden bg-gray-200 relative">
-             <div className="absolute inset-0 bg-gray-100 mix-blend-multiply transition-colors duration-500 hover:bg-transparent z-10 pointer-events-none"></div>
-             
+          <div className="order-1 md:order-2 aspect-[4/5] overflow-hidden bg-gray-200 relative group">
+             <div className="absolute inset-0 bg-gray-100 mix-blend-multiply transition-colors duration-500 group-hover:bg-transparent z-10 pointer-events-none"></div>
+             {/* CURATION IMAGE */}
+             <img
+                src="/about2.jpg"
+                alt="Premium Menswear and Essentials"
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+             />
           </div>
         </div>
       </section>
