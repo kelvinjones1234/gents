@@ -318,7 +318,7 @@ export default function Main({
             </p>
             <a
               href="/all-products"
-              className="px-10 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
+              className="px-10 py-4 m-4 border text-center border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300"
             >
               View All Products
             </a>
