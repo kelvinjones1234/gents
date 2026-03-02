@@ -26,7 +26,7 @@ import { searchProducts } from "@/app/actions/general/search";
 const BASE_NAV_LINKS = [
   { name: "Shop", href: "/" },
   { name: "Collections", href: "/collections" },
-  { name: "About", href: "/about" },
+  { name: "About", href: "/about-gent" },
 ];
 
 export default function Navbar() {
