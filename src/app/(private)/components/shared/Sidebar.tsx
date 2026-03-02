@@ -16,7 +16,6 @@ import {
   Settings,
   LogOut,
   X,
-  Box,
   Layers,
 } from "lucide-react";
 import Image from "next/image";
@@ -37,10 +36,10 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
     { name: "Products", href: "/dashboard/products", icon: Package },
     { name: "Payments", href: "/payments", icon: CreditCard },
     { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
-    { name: "Chat", href: "/chat", icon: MessageSquare },
-    { name: "Mail", href: "/mail", icon: Mail },
-    { name: "Calendar", href: "/calendar", icon: Calendar },
-    { name: "Brands", href: "/brands", icon: Tag },
+    // { name: "Chat", href: "/chat", icon: MessageSquare },
+    // { name: "Mail", href: "/mail", icon: Mail },
+    // { name: "Calendar", href: "/calendar", icon: Calendar },
+    // { name: "Brands", href: "/brands", icon: Tag },
   ];
 
   return (
