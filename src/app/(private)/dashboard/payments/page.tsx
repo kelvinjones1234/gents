@@ -2,18 +2,28 @@ import React from 'react';
 import Main from './components/Main';
 import { getPaginatedPayments } from '@/app/actions/admin/payment';
 
-// Next.js passes searchParams to page components automatically
 export default async function PaymentPage({
   searchParams,
 }: {
   searchParams: { page?: string };
 }) {
-  // Parse the page number from the URL, default to 1
   const currentPage = Number(searchParams.page) || 1;
-  const limit = 10; // Show 10 transactions per page
+  const limit = 10;
 
   // Fetch paginated data
   const data = await getPaginatedPayments(currentPage, limit);
+
+  // 1. Setup default fallback values
+  let payments: any[] = [];
+  let safeCurrentPage = 1;
+  let safeTotalPages = 1;
+
+  // 2. Type Narrowing: If successful, TypeScript now strictly knows these properties exist
+  if (data.success && data.payments) {
+    payments = data.payments;
+    safeCurrentPage = data.currentPage;
+    safeTotalPages = data.totalPages;
+  }
 
   return (
     <div className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col transition-colors duration-300">
@@ -32,9 +42,9 @@ export default async function PaymentPage({
       {/* MAIN CONTENT */}
       <main className="flex-1 bg-[#FAFAFA] py-8">
         <Main 
-          initialPayments={data.success ? data.payments : []} 
-          currentPage={data.success ? data.currentPage : 1}
-          totalPages={data.success ? data.totalPages : 1}
+          initialPayments={payments} 
+          currentPage={safeCurrentPage}
+          totalPages={safeTotalPages}
         />
       </main>
     </div>
