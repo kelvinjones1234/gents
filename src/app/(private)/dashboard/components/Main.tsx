@@ -94,10 +94,9 @@ export default function Main({ initialData }: DashboardProps) {
     <div className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col transition-colors duration-300">
       {/* 1. DASHBOARD HEADER */}
       <header className="pb-8 border-b border-gray-200 ">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="flex justify-between gap-6 items-center">
           <div>
-            
-            <h1 className="font-display text-xl sm:text-2xl md:text-3xl font-medium tracking-tight uppercase leading-[0.9]">
+            <h1 className="font-display text-lg sm:text-xl md:text-2xl font-medium tracking-tight uppercase leading-[0.9]">
               Admin Dashboard
             </h1>
           </div>

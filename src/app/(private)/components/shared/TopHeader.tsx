@@ -9,7 +9,7 @@ interface TopHeaderProps {
 
 export default function TopHeader({ setSidebarOpen }: TopHeaderProps) {
   return (
-    <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-30">
+    <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-30">
       {/* Left side: Hamburger (Mobile) & Greeting */}
       <div className="flex items-center gap-4">
         <button

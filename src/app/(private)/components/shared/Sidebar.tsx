@@ -9,10 +9,6 @@ import {
   Package,
   CreditCard,
   ShoppingCart,
-  MessageSquare, // Kept these in case you plan to use them later
-  Mail,
-  Calendar,
-  Tag,
   Settings,
   LogOut,
   X,
@@ -33,7 +29,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
     { name: "Customers", href: "/dashboard/customers", icon: Users },
     { name: "Categories", href: "/dashboard/categories", icon: Layers },
     { name: "Products", href: "/dashboard/products", icon: Package },
-    { name: "Payments", href: "/payments", icon: CreditCard },
+    { name: "Payments", href: "/dashboard/payments", icon: CreditCard },
     { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
   ];
 
