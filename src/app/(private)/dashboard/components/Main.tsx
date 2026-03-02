@@ -96,12 +96,9 @@ export default function Main({ initialData }: DashboardProps) {
       <header className="pb-8 border-b border-gray-200 ">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-muted mb-2 flex items-center gap-2">
-              <Activity className="w-3 h-3 animate-pulse text-green-600" />
-              System Status: Optimal
-            </p>
+            
             <h1 className="font-display text-xl sm:text-2xl md:text-3xl font-medium tracking-tight uppercase leading-[0.9]">
-              Command Center
+              Admin Dashboard
             </h1>
           </div>
           <div className="flex items-center gap-4">

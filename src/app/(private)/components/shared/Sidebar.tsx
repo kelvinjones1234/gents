@@ -9,7 +9,7 @@ import {
   Package,
   CreditCard,
   ShoppingCart,
-  MessageSquare,
+  MessageSquare, // Kept these in case you plan to use them later
   Mail,
   Calendar,
   Tag,
@@ -32,15 +32,18 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Customers", href: "/dashboard/customers", icon: Users },
     { name: "Categories", href: "/dashboard/categories", icon: Layers },
-
     { name: "Products", href: "/dashboard/products", icon: Package },
     { name: "Payments", href: "/payments", icon: CreditCard },
     { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
-    // { name: "Chat", href: "/chat", icon: MessageSquare },
-    // { name: "Mail", href: "/mail", icon: Mail },
-    // { name: "Calendar", href: "/calendar", icon: Calendar },
-    // { name: "Brands", href: "/brands", icon: Tag },
   ];
+
+  // Helper function to handle link clicks
+  const handleLinkClick = () => {
+    // Only close if it's currently open (useful for mobile)
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <>
@@ -63,6 +66,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           <Link
             href="/"
             className="flex items-center gap-3 text-foreground group"
+            onClick={handleLinkClick}
           >
             <Image
               src="/6.png"
@@ -91,6 +95,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               <Link
                 key={item.name}
                 href={item.href}
+                onClick={handleLinkClick} // <-- Added onClick here
                 className={`flex items-center gap-4 px-4 py-3 text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 group ${
                   isActive
                     ? "bg-foreground text-white"
@@ -111,6 +116,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         <div className="p-4 border-t border-gray-200 space-y-1 bg-white shrink-0">
           <Link
             href="/settings"
+            onClick={handleLinkClick} // <-- Added onClick here too
             className="flex items-center gap-4 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-muted hover:bg-gray-100 hover:text-foreground transition-colors duration-300 group"
           >
             <Settings
