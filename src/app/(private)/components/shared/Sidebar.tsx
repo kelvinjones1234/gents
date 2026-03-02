@@ -19,6 +19,7 @@ import {
   Box,
   Layers,
 } from "lucide-react";
+import Image from "next/image";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -64,13 +65,13 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             href="/"
             className="flex items-center gap-3 text-foreground group"
           >
-            <Box
-              className="w-5 h-5 group-hover:scale-110 transition-transform"
-              strokeWidth={1.5}
+            <Image
+              src="/6.png"
+              alt="Gents Collection Store Logo"
+              width={80}
+              height={10}
+              className="object-contain"
             />
-            <span className="font-display text-lg font-medium tracking-tight uppercase mt-1">
-              Gents
-            </span>
           </Link>
           {/* Mobile Close Button */}
           <button
