@@ -27,9 +27,9 @@ export default function Main() {
             A Standard.
           </h1>
 
-          <div className="mt-12 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
-            <span className="h-2 w-2 bg-white group-hover:scale-150 transition-transform duration-300"></span>
-            <span className="border-b border-transparent group-hover:border-white transition-colors duration-300">
+          <div className="mt-12 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest group self-start">
+            <span className="h-3 w-3 bg-white transition-transform duration-300"></span>
+            <span className="border-b border-transparent transition-colors duration-300">
               Discover Our Vision
             </span>
           </div>
@@ -77,7 +77,7 @@ export default function Main() {
             </p>
             <div className="flex items-center gap-3 text-foreground text-xs font-bold uppercase tracking-widest cursor-pointer group self-start pt-4">
               <span className="h-2 w-2 bg-foreground group-hover:scale-150 transition-transform duration-300"></span>
-              <a href="/collections/all" className="border-b border-transparent group-hover:border-foreground transition-colors duration-300">
+              <a href="/collections" className="border-b border-transparent group-hover:border-foreground transition-colors duration-300">
                 Explore The Collection
               </a>
             </div>
@@ -104,7 +104,7 @@ export default function Main() {
               Pillars of the Brand
             </h2>
             <p className="text-xl md:text-2xl font-display uppercase tracking-tight max-w-lg leading-tight">
-              We operate on three distinct principles that dictate every product we source and every interaction we have.
+              We operate on three distinct principles that dictate every product we source and every interaction we have: Quality, Style and Decency.
             </p>
           </div>
 
