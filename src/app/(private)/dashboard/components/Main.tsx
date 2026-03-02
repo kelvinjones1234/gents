@@ -101,7 +101,7 @@ export default function Main({ initialData }: DashboardProps) {
             </h1>
           </div>
           <div className="flex items-center gap-4">
-            <button className="px-6 py-3 bg-foreground text-white border border-foreground text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-transparent hover:text-foreground transition-colors">
+            <button className="px-3 py-2 bg-foreground text-white border border-foreground text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-transparent hover:text-foreground transition-colors">
               New Product
             </button>
           </div>
