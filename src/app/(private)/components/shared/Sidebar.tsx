@@ -36,7 +36,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
 
     { name: "Products", href: "/dashboard/products", icon: Package },
     { name: "Payments", href: "/payments", icon: CreditCard },
-    { name: "Orders", href: "/orders", icon: ShoppingCart },
+    { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
     { name: "Chat", href: "/chat", icon: MessageSquare },
     { name: "Mail", href: "/mail", icon: Mail },
     { name: "Calendar", href: "/calendar", icon: Calendar },
@@ -60,7 +60,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
         }`}
       >
         {/* Brand Logo Header */}
-        <div className="h-20 flex items-center justify-between px-6 border-b border-gray-200 shrink-0 bg-white">
+        <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200 shrink-0 bg-white">
           <Link
             href="/"
             className="flex items-center gap-3 text-foreground group"
