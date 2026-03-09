@@ -58,7 +58,7 @@ export default function Main({
 
   // Memoized to prevent re-creation on every render
   const handleQuickAdd = useCallback(
-    (product: ProductWithRelations) => { 
+    (product: ProductWithRelations) => {
       if (product.hasVariants) {
         setSelectedProductForModal(product);
         setIsOptionModalOpen(true);
@@ -179,21 +179,28 @@ export default function Main({
       />
 
       {/* 1. HERO SECTION */}
-      <section className="relative w-full h-[60vh] md:h-[90vh] bg-gradient-to-tr from-[#2F3A39] via-[#434B49] to-[#70675B] overflow-hidden flex items-center">
-        {/* <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* <section className="relative w-full h-[60vh] md:h-[90vh] bg-gradient-to-tr from-[#2F3A39] via-[#434B49] to-[#70675B] overflow-hidden flex items-center">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <img
             src="/img3.png"
             alt="Fall Collection Model"
             className="w-full h-full object-contain object-bottom translate-x-32 md:translate-x-32"
             decoding="async"
           />
-        </div> */}
+        </div>
 
         <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
           <h1 className="text-white font-display text-[14vw] md:text-[12vw] lg:text-[9vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[80% mix-blend-overlay">
             /Gents
             <br />
             Collec — Tion
+            <br />
+            2026
+          </h1>
+          <h1 className="text-white font-display text-[14vw] md:text-[12vw] lg:text-[9vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[80%] mix-blend-overlay">
+            /Gents
+            <br />
+            Vau —— lt
             <br />
             2026
           </h1>
@@ -206,6 +213,34 @@ export default function Main({
 
           <div className="mt-8 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
             <span className="h-2 w-2 bg-white group-hover:scale-150 transition-transform duration-300"></span>
+            <span className="border-b border-transparent group-hover:border-white transition-colors duration-300">
+              Explore Now
+            </span>
+          </div>
+        </div>
+      </section> */}
+
+      <section className="relative w-full h-[60vh] md:h-[80vh] bg-gradient-to-tr from-[#1A1C1C] via-[#2F3A39] to-[#4A4742] overflow-hidden flex items-center">
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-overlay">
+          {/* HERO IMAGE */}
+          <img
+            src="/about1.jpg"
+            alt="GentsCollectionStore Boutique"
+            className="w-full h-full object-cover object-center"
+            decoding="async"
+          />
+        </div>
+
+        <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
+          <h1 className="text-white font-display text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay">
+            /Gents
+            <br />
+            Vau —— lt
+            <br />
+           Gentlemen Standard
+          </h1>
+
+          <div className="mt-12 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest group self-start">
             <span className="border-b border-transparent group-hover:border-white transition-colors duration-300">
               Explore Now
             </span>
@@ -311,7 +346,7 @@ export default function Main({
           </div>
         </div>
         <div className="mt-8 px-6 md:px-12 items-center gap-6 border-t border-gray-200 pt-8">
-          <div className="container-main flex flex-col md:flex-row justify-between md:items-center">
+          <div className="flex flex-col md:flex-row justify-between md:items-center">
             <p className="text-xs text-muted max-w-sm mx-auto leading-relaxed text-center md:text-start">
               A hand-selected selection of the best selling products in our
               online store. Discover the favorite pieces of our community.
