@@ -232,13 +232,23 @@ export default function Main({
         </div>
 
         <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
-          <h1 className="text-white font-display text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay">
+          {/* <h1 className="text-white font-display text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay">
             /Gents
             <br />
             Vau——lt
             <br />
             Built for Men
-          </h1>
+          </h1> */}
+
+          <h1 className="text-white italic font-display text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay">
+  /Gents
+  <br />
+  Va
+  <span className="mx-4">—</span>
+  lt
+  <br />
+  Built for Men
+</h1>
 
           <div className="mt-12 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest group self-start">
             <span className="border-b border-transparent group-hover:border-white transition-colors duration-300">
