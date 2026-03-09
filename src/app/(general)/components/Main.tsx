@@ -58,7 +58,7 @@ export default function Main({
 
   // Memoized to prevent re-creation on every render
   const handleQuickAdd = useCallback(
-    (product: ProductWithRelations) => {
+    (product: ProductWithRelations) => { 
       if (product.hasVariants) {
         setSelectedProductForModal(product);
         setIsOptionModalOpen(true);
@@ -180,17 +180,17 @@ export default function Main({
 
       {/* 1. HERO SECTION */}
       <section className="relative w-full h-[60vh] md:h-[90vh] bg-gradient-to-tr from-[#2F3A39] via-[#434B49] to-[#70675B] overflow-hidden flex items-center">
-        <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* <div className="absolute inset-0 z-0 pointer-events-none">
           <img
             src="/img3.png"
             alt="Fall Collection Model"
             className="w-full h-full object-contain object-bottom translate-x-32 md:translate-x-32"
             decoding="async"
           />
-        </div>
+        </div> */}
 
         <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
-          <h1 className="text-white font-display text-[14vw] md:text-[12vw] lg:text-[9vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[80%] mix-blend-overlay">
+          <h1 className="text-white font-display text-[14vw] md:text-[12vw] lg:text-[9vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[80% mix-blend-overlay">
             /Gents
             <br />
             Collec — Tion
