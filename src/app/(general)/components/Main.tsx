@@ -235,9 +235,9 @@ export default function Main({
           <h1 className="text-white font-display text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay">
             /Gents
             <br />
-            Vau —— lt
+            Vau——lt
             <br />
-           Gentlemen Standard
+            Built for Men
           </h1>
 
           <div className="mt-12 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest group self-start">
