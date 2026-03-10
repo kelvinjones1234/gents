@@ -178,49 +178,8 @@ export default function Main({
         onAddToCart={handleModalAddToCart}
       />
 
-      {/* 1. HERO SECTION */}
-      {/* <section className="relative w-full h-[60vh] md:h-[90vh] bg-gradient-to-tr from-[#2F3A39] via-[#434B49] to-[#70675B] overflow-hidden flex items-center">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <img
-            src="/img3.png"
-            alt="Fall Collection Model"
-            className="w-full h-full object-contain object-bottom translate-x-32 md:translate-x-32"
-            decoding="async"
-          />
-        </div>
-
-        <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
-          <h1 className="text-white font-display text-[14vw] md:text-[12vw] lg:text-[9vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[80% mix-blend-overlay">
-            /Gents
-            <br />
-            Collec — Tion
-            <br />
-            2026
-          </h1>
-          <h1 className="text-white font-display text-[14vw] md:text-[12vw] lg:text-[9vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[80%] mix-blend-overlay">
-            /Gents
-            <br />
-            Vau —— lt
-            <br />
-            2026
-          </h1>
-
-          <div className="absolute bottom-12 right-6 md:right-12 text-right text-white text-[10px] md:text-xs tracking-widest uppercase font-medium space-y-1 hidden sm:block">
-            {allCategories.slice(0, 5).map((c) => (
-              <p key={c.id}>{c.name}</p>
-            ))}
-          </div>
-
-          <div className="mt-8 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
-            <span className="h-2 w-2 bg-white group-hover:scale-150 transition-transform duration-300"></span>
-            <span className="border-b border-transparent group-hover:border-white transition-colors duration-300">
-              Explore Now
-            </span>
-          </div>
-        </div>
-      </section> */}
-
-      <section className="relative w-full h-[60vh] md:h-[80vh] bg-gradient-to-tr from-[#1A1C1C] via-[#2F3A39] to-[#4A4742] overflow-hidden flex items-center">
+      <section className="relative w-full min-h-[450px] md:min-h-[600px] h-[60vh] md:h-[80vh] bg-gradient-to-tr from-[#1A1C1C] via-[#2F3A39] to-[#4A4742] overflow-hidden flex items-center py-12">
+        {" "}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-overlay">
           {/* HERO IMAGE */}
           <img
@@ -230,25 +189,16 @@ export default function Main({
             decoding="async"
           />
         </div>
-
         <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
-          {/* <h1 className="text-white font-display text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay">
+          <h1 className="text-white italic font-display text-[clamp(3.5rem,10vw,8rem)] leading-[1] md:leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay py-2">
             /Gents
             <br />
-            Vau——lt
+            Va
+            <span className="mx-4">—</span>
+            lt.
             <br />
             Built for Men
-          </h1> */}
-
-          <h1 className="text-white italic font-display text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay">
-  /Gents
-  <br />
-  Va
-  <span className="mx-4">—</span>
-  lt
-  <br />
-  Built for Men
-</h1>
+          </h1>
 
           <div className="mt-12 flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest group self-start">
             <span className="border-b border-transparent group-hover:border-white transition-colors duration-300">
@@ -419,7 +369,7 @@ export default function Main({
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
               Tech Spotlight
             </h2>
-            <h3 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
+            <h3 className="font-display pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
               SOUND
               <br />
               WITHOUT
@@ -484,7 +434,7 @@ export default function Main({
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
               Everyday Carry
             </h2>
-            <h3 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
+            <h3 className="font-display pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
               TOOLS
               <br />
               OF THE
@@ -554,7 +504,7 @@ export default function Main({
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
               Campaign
             </h2>
-            <h3 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight">
+            <h3 className="font-display text-5xl sm:text-6xl pb-2 md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight">
               THE
               <br />
               STEALTH
@@ -642,7 +592,7 @@ export default function Main({
           </div>
           <div className="md:w-3/4 max-w-5xl">
             <p className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-medium leading-[1.2] text-muted uppercase tracking-tight">
-              GENTSCOLLECTIONSTORE IS THE STANDARD FOR THE{" "}
+              GENTSVAULT IS THE STANDARD FOR THE{" "}
               <span className="text-foreground transition-colors duration-300 hover:text-[#5E7472] cursor-default">
                 VISION-DRIVEN MODERN MAN
               </span>
@@ -669,7 +619,7 @@ export default function Main({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-32">
             <div className="flex flex-col justify-between">
               <div className="space-y-6 md:space-y-8">
-                <h3 className="font-display text-2xl md:text-4xl font-medium leading-[0.9] tracking-tight">
+                <h3 className="font-display text-2xl md:text-4xl font-medium leading-[0.9] pb-2 tracking-tight">
                   <span className="font-light text-muted">/</span>BRAUN AUDIO
                   <sup className="text-xs font-normal text-muted align-top ml-4 tracking-normal">
                     2025
