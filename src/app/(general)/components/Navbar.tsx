@@ -239,7 +239,7 @@ export default function Navbar() {
                 alt="Gents Collection Store Logo"
                 width={100}
                 height={80}
-                className="object-contain"
+                className="object-contain py-2"
               />
             </Link>
           </div>
