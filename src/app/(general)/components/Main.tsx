@@ -190,12 +190,10 @@ export default function Main({
           />
         </div>
         <div className="container-main mx-auto relative z-10 w-full flex flex-col justify-center h-full px-6 md:px-12">
-          <h1 className="text-white italic font-display text-[clamp(3.5rem,10vw,8rem)] leading-[1] md:leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay py-2">
-            /Gents
+          <h1 className="text-white italic font-display text-[clamp(3rem,10vw,8rem)] leading-[1] md:leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay py-2">
+            /Akinaura
             <br />
-            Va
-            <span className="mx-4">—</span>
-            lt.
+           Collections
             <br />
             Built for Men
           </h1>
@@ -592,7 +590,7 @@ export default function Main({
           </div>
           <div className="md:w-3/4 max-w-5xl">
             <p className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-medium leading-[1.2] text-muted uppercase tracking-tight">
-              GENTSVAULT IS THE STANDARD FOR THE{" "}
+              AKINAURA IS THE STANDARD FOR THE{" "}
               <span className="text-foreground transition-colors duration-300 hover:text-[#5E7472] cursor-default">
                 VISION-DRIVEN MODERN MAN
               </span>
@@ -664,7 +662,7 @@ export default function Main({
       <section className="py-16 bg-white overflow-hidden">
         <div className="container-main mx-auto px-6 md:px-12 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
           <h2 className="text-xs font-bold uppercase tracking-widest text-foreground flex items-center gap-3">
-            <Instagram className="w-4 h-4" /> @GentsCollection
+            <Instagram className="w-4 h-4" /> @akinaura
           </h2>
           <a
             href="#"

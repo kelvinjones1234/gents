@@ -237,8 +237,8 @@ export default function Navbar() {
               <Image
                 src="/6.png"
                 alt="Gents Collection Store Logo"
-                width={80}
-                height={10}
+                width={100}
+                height={80}
                 className="object-contain"
               />
             </Link>

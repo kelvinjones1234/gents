@@ -12,7 +12,7 @@ export default function Main() {
           {/* HERO IMAGE */}
           <img
             src="/about1.jpg"
-            alt="GentsCollectionStore Boutique"
+            alt="akinaura Boutique"
             className="w-full h-full object-cover object-center"
             decoding="async"
           />
@@ -45,7 +45,7 @@ export default function Main() {
           </div>
           <div className="md:w-3/4 max-w-5xl">
             <p className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-medium leading-[1.1] text-muted uppercase tracking-tight">
-              GENTSCOLLECTIONSTORE IS THE PREMIER LIFESTYLE DESTINATION FOR THE{" "}
+              akinaura IS THE PREMIER LIFESTYLE DESTINATION FOR THE{" "}
               <span className="text-foreground transition-colors duration-300 hover:text-[#5E7472] cursor-default">
                 VISION-DRIVEN MAN
               </span>
