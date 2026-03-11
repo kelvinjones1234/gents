@@ -367,7 +367,7 @@ export default function Main({
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
               Tech Spotlight
             </h2>
-            <h3 className="font-display pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
+            <h3 className="font-display italic pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
               SOUND
               <br />
               WITHOUT
@@ -432,7 +432,7 @@ export default function Main({
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
               Everyday Carry
             </h2>
-            <h3 className="font-display pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
+            <h3 className="font-display italic pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
               TOOLS
               <br />
               OF THE
@@ -502,7 +502,7 @@ export default function Main({
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
               Campaign
             </h2>
-            <h3 className="font-display text-5xl sm:text-6xl pb-2 md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight">
+            <h3 className="font-display italic text-5xl sm:text-6xl pb-2 md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight">
               THE
               <br />
               STEALTH
