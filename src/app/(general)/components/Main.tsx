@@ -184,7 +184,7 @@ export default function Main({
           {/* HERO IMAGE */}
           <img
             src="/about1.jpg"
-            alt="GentsCollectionStore Boutique"
+            alt="akinaura collections"
             className="w-full h-full object-cover object-center"
             decoding="async"
           />
