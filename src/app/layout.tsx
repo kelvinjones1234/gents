@@ -18,8 +18,15 @@ const geistMono = Geist_Mono({
 
 // Update this to reflect your brand!
 export const metadata: Metadata = {
-  title: "Gents | Secure Investment Portal & Lifestyle",
-  description: "Premium essentials and gear for the modern gent.",
+  title: "Akinaura",
+  description: "Premium essentials and gear for the modern gentlemen.",
+  icons: {
+    icon: "/6.png", 
+    apple: "/6.png",
+  },
+  openGraph: {
+    images: ["/6.png"], 
+  },
 };
 
 export default function RootLayout({
