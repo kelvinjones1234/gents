@@ -193,7 +193,7 @@ export default function Main({
           <h1 className="text-white italic font-display text-[clamp(3rem,10vw,8rem)] leading-[1] md:leading-[0.9] font-bold tracking-tight uppercase max-w-[90%] mix-blend-overlay py-2">
             /Akinaura
             <br />
-           Collections
+            Collections
             <br />
             Built for Men
           </h1>
@@ -305,7 +305,7 @@ export default function Main({
         </div>
         <div className="mt-8 px-6 md:px-12 items-center gap-6 border-t border-gray-200 pt-8">
           <div className="flex flex-col md:flex-row justify-between md:items-center">
-            <p className="text-xs text-muted max-w-sm mx-auto leading-relaxed text-center md:text-start">
+            <p className="text-xs text-muted max-w-sm leading-relaxed text-center md:text-start">
               A hand-selected selection of the best selling products in our
               online store. Discover the favorite pieces of our community.
             </p>
@@ -334,7 +334,7 @@ export default function Main({
             </a>
           </div>
         </div>
-        <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
+        <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x">
           {newArrivals.map((item) => (
             <div
               key={item.id}
@@ -349,40 +349,41 @@ export default function Main({
           ))}
         </div>
       </section>
+     
 
-      {/* 5. GADGETS SPOTLIGHT */}
-      <section className="py-16 bg-white border-b border-gray-200">
-        <div className="container-main mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
+      {/* 5. WATCHES SPOTLIGHT */}
+      <section className="bg-white border-b border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
           <div className="order-1 aspect-[4/5] overflow-hidden bg-[#FAFAFA] relative">
             <div className="absolute inset-0 bg-gray-100 mix-blend-multiply transition-colors duration-500 hover:bg-transparent z-10 pointer-events-none"></div>
             <img
-              src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800"
-              alt="Headphones"
+              src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=800"
+              alt="Premium Men's Watch"
               className="w-full h-full object-cover hover:scale-105 transition-all duration-1000"
               loading="lazy"
               decoding="async"
             />
           </div>
-          <div className="order-2 space-y-6 md:space-y-8">
+          <div className="order-2 space-y-6 md:space-y-8 px-6 md:px-12 pb-6 md:py-0">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
-              Tech Spotlight
+              Horology Spotlight
             </h2>
             <h3 className="font-display italic pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
-              SOUND
+              MASTER
               <br />
-              WITHOUT
+              YOUR
               <br />
-              LIMITS
+              TIME
             </h3>
             <p className="text-sm text-muted leading-relaxed max-w-md">
-              Elevate your auditory experience. Our curated selection of premium
-              audio gadgets marries high-fidelity sound with minimalist, robust
-              industrial design.
+              Elevate your everyday presence. Our curated selection of premium
+              men's timepieces marries precision mechanical engineering with
+              bold, timeless industrial design.
             </p>
             <div className="flex items-center gap-3 text-foreground text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
               <span className="h-2 w-2 bg-foreground group-hover:scale-150 transition-transform duration-300"></span>
               <span className="border-b border-transparent group-hover:border-foreground transition-colors duration-300">
-                Explore Audio
+                Explore Timepieces
               </span>
             </div>
           </div>
@@ -404,7 +405,7 @@ export default function Main({
             </a>
           </div>
         </div>
-        <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
+        <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x">
           {topSellers.map((item) => (
             <div
               key={item.id}
@@ -417,42 +418,47 @@ export default function Main({
       </section>
 
       {/* 7. EDC SPOTLIGHT */}
-      <section className="py-16 bg-white border-b border-gray-200">
-        <div className="container-main mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
+
+      {/* 7. GROOMING SPOTLIGHT */}
+      <section className="bg-accent-gray border-b border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
           <div className="order-1 md:order-2 aspect-[4/5] overflow-hidden bg-[#FAFAFA] relative">
             <div className="absolute inset-0 bg-gray-100 mix-blend-multiply transition-colors duration-500 hover:bg-transparent z-10 pointer-events-none"></div>
+            {/* I swapped the placeholder with a premium barber/grooming tools image from Unsplash, but feel free to change it back to your local image! */}
             <img
-              src="/img1.png"
-              alt="EDC"
+              src="https://images.unsplash.com/photo-1599305090598-fe179d501227?auto=format&fit=crop&q=80&w=800"
+              alt="Men's Grooming Hardware"
               className="w-full h-full object-cover hover:scale-105 transition-all duration-1000"
               decoding="async"
             />
           </div>
-          <div className="order-2 md:order-1 space-y-6 md:space-y-8">
+          <div className="order-2 md:order-1 space-y-6 md:space-y-8 px-6 md:px-12">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
-              Everyday Carry
+              Grooming Essentials
             </h2>
             <h3 className="font-display italic pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
-              TOOLS
+              PRECISION
               <br />
-              OF THE
+              IN EVERY
               <br />
-              TRADE
+              DETAIL
             </h3>
             <p className="text-sm text-muted leading-relaxed max-w-md">
-              From precision-machined pocket knives to carbon steel grooming
-              shears. We source the finest hardware designed to last a lifetime
-              and assist in your daily rituals.
+              From heavy-duty, precision-engineered nail clippers to
+              professional-grade grooming kits. We source the finest stainless
+              steel hardware designed to last a lifetime and elevate your
+              personal care rituals.
             </p>
             <div className="flex items-center gap-3 text-foreground text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
               <span className="h-2 w-2 bg-foreground group-hover:scale-150 transition-transform duration-300"></span>
               <span className="border-b border-transparent group-hover:border-foreground transition-colors duration-300">
-                Explore Hardware
+                Explore Grooming
               </span>
             </div>
           </div>
         </div>
       </section>
+    
 
       {/* 8. HOT DEALS */}
       <section className="py-16 bg-[#FAFAFA] border-b border-gray-200">
@@ -470,7 +476,7 @@ export default function Main({
             </a>
           </div>
         </div>
-        <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
+        <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x">
           {hotDeals.map((item) => (
             <div
               key={item.id}
@@ -487,37 +493,40 @@ export default function Main({
         </div>
       </section>
 
-      {/* 9. CAMPAIGN */}
-      <section className="py-24 bg-foreground text-white border-b border-gray-800">
-        <div className="container-main mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
-          <div className="order-1 md:order-2 aspect-[4/5] overflow-hidden bg-gray-800">
+    
+
+      {/* 9. CAMPAIGN - LEATHER GOODS */}
+      <section className="bg-foreground text-white border-b border-gray-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
+          <div className="order-1 md:order-2 aspect-[4/5] overflow-hidden bg-gray-800 relative">
             <img
-              src="/img1.png"
-              alt="Stealth Series"
+              // Using a moody, dark leather wallet/accessories image
+              src="https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=800"
+              alt="Premium Leather Wallet"
               className="w-full h-full object-cover opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-1000"
               decoding="async"
             />
           </div>
-          <div className="order-2 md:order-1 space-y-6 md:space-y-8">
+          <div className="order-2 md:order-1 px-6 md:px-12 pb-6 md:py-0 space-y-6 md:space-y-8">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
-              Campaign
+              Exclusive Collection
             </h2>
             <h3 className="font-display italic text-5xl sm:text-6xl pb-2 md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight">
               THE
               <br />
-              STEALTH
+              OBSIDIAN
               <br />
-              SERIES
+              RESERVE
             </h3>
             <p className="text-sm text-gray-400 leading-relaxed max-w-md">
-              Engineered for the urban commute. Water-resistant, completely
-              matte black, and crafted for maximum utility without compromising
-              on clean minimalist lines.
+              A masterclass in restraint. Hand-stitched full-grain leather goods
+              finished with matte-black PVD hardware. Designed to age
+              beautifully and quietly command respect.
             </p>
             <div className="flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
               <span className="h-2 w-2 bg-white group-hover:scale-150 transition-transform duration-300"></span>
               <span className="border-b border-transparent group-hover:border-white transition-colors duration-300 pb-0.5">
-                Shop The Series
+                Explore The Reserve
               </span>
             </div>
           </div>
@@ -525,9 +534,9 @@ export default function Main({
       </section>
 
       {/* 10. FEATURED COLLECTIONS */}
-      <section className="py-16 bg-white border-b border-gray-200 min-h-[500px]">
+      <section className="bg-white border-b border-gray-200 min-h-[500px]">
         <div className="container-main mx-auto px-6 md:px-12">
-          <div className="flex flex-col items-center mb-16">
+          <div className="flex flex-col items-center my-16">
             <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight uppercase mb-10 text-foreground text-center">
               Featured Collections
             </h2>
@@ -557,7 +566,7 @@ export default function Main({
             </div>
           )}
 
-          <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x px-6 md:px-12">
+          <div className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar pb-12 snap-x">
             {displayedProducts.length === 0 ? (
               <div className="w-full text-center py-12 text-muted text-xs uppercase tracking-widest">
                 No featured items available in this category.
@@ -581,8 +590,8 @@ export default function Main({
       </section>
 
       {/* 11. THE BRAND & 12. COLLABORATIONS & 13. SOCIAL & 14. NEWSLETTER */}
-      <div className="py-16 bg-white border-b border-gray-200">
-        <div className="container-main mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-8 md:gap-24 lg:gap-32">
+      <div className="bg-white border-b border-gray-200">
+        <div className="container-main mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-8 md:gap-24 lg:gap-32 py-16">
           <div className="md:w-1/4">
             <h3 className="text-xs font-bold uppercase tracking-widest text-foreground">
               The Brand
@@ -609,28 +618,28 @@ export default function Main({
         </div>
       </div>
 
+      {/* 12. COLLABORATIONS - EDC HARDWARE */}
+      {/* 12. FOOTWEAR / PALMS SPOTLIGHT */}
       <section className="py-16 bg-[#FAFAFA] border-b border-gray-200">
         <div className="container-main mx-auto px-6 md:px-12">
           <h2 className="text-xs font-bold uppercase tracking-widest mb-12 md:mb-24 text-foreground">
-            Collaborations
+            The Resort Collection
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-32">
             <div className="flex flex-col justify-between">
               <div className="space-y-6 md:space-y-8">
                 <h3 className="font-display text-2xl md:text-4xl font-medium leading-[0.9] pb-2 tracking-tight">
-                  <span className="font-light text-muted">/</span>BRAUN AUDIO
+                  <span className="font-light text-muted">/</span>THE LEATHER PALMS
                   <sup className="text-xs font-normal text-muted align-top ml-4 tracking-normal">
-                    2025
+                    SS-26
                   </sup>
                 </h3>
                 <p className="text-sm text-muted leading-relaxed max-w-sm">
-                  With a shared passion for lifestyle, architecture, and sound,
-                  the partnership brings together heritage design and modern
-                  engineering for the ultimate home listening experience.
+                  Engineered for the art of unwinding. We paired hand-cut, full-grain leather with contoured, shock-absorbing footbeds. Whether you call them palms, slides, or slippers—this is effortless, slip-on luxury designed to anchor your off-duty wardrobe.
                 </p>
                 <div className="pt-4">
                   <button className="px-8 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300">
-                    Learn More
+                    Shop Footwear
                   </button>
                 </div>
               </div>
@@ -639,17 +648,17 @@ export default function Main({
               <div className="flex gap-4 h-[260px] sm:h-[340px] md:h-[450px]">
                 <div className="flex-1 overflow-hidden bg-gray-200">
                   <img
-                    alt="Collab Lifestyle 1"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
-                    src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=800"
+                    alt="Man wearing premium leather palms"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 grayscale hover:grayscale-0"
+                    src="https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&q=80&w=800"
                     decoding="async"
                   />
                 </div>
                 <div className="flex-1 overflow-hidden bg-gray-200">
                   <img
-                    alt="Collab Lifestyle 2"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
-                    src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&q=80&w=800"
+                    alt="Detail shot of leather slippers"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 grayscale hover:grayscale-0"
+                    src="https://images.unsplash.com/photo-1562183241-b937e95585b6?auto=format&fit=crop&q=80&w=800"
                     decoding="async"
                   />
                 </div>
@@ -658,8 +667,9 @@ export default function Main({
           </div>
         </div>
       </section>
+ 
 
-      <section className="py-16 bg-white overflow-hidden">
+      <section className="pt-16 bg-white overflow-hidden">
         <div className="container-main mx-auto px-6 md:px-12 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
           <h2 className="text-xs font-bold uppercase tracking-widest text-foreground flex items-center gap-3">
             <Instagram className="w-4 h-4" /> @akinaura
@@ -716,6 +726,7 @@ export default function Main({
             />
             <button
               type="submit"
+              disabled
               className="px-8 py-4 bg-foreground text-white border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-transparent hover:text-foreground transition-colors duration-300 whitespace-nowrap"
             >
               Subscribe
