@@ -156,6 +156,10 @@ export default function Navbar() {
     [addItem, toggleCart],
   );
 
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/account/login" });
+  };
+
   return (
     <>
       <OptionModal
@@ -541,7 +545,7 @@ export default function Navbar() {
                 <button
                   onClick={() => {
                     handleMobileClose();
-                    signOut();
+                    handleLogout();
                   }}
                   className="flex items-center gap-3 py-3 px-4 hover:bg-gray-50 transition-colors text-left text-red-600"
                 >

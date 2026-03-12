@@ -22,7 +22,7 @@ export default withAuth(
       // If this returns false, NextAuth automatically kicks them to the signIn page.
       authorized: ({ token }) => !!token,
     },
-    pages: {
+    pages: { 
       signIn: "/account/login",
     }, 
   },
@@ -33,6 +33,6 @@ export const config = {
     // 3. We uncommented the admin matcher so middleware runs on these routes
     "/admin/:path*",
     "/dashboard/:path*",
-    "/invest/:path*",
+    "/account/user",
   ],
 };

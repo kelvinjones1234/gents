@@ -81,3 +81,32 @@ export async function saveAddress(data: {
     return { success: false, error: error.message };
   }
 }
+
+
+
+
+export async function deleteAddress(id: string) {
+  try {
+    const session = await getServerSession();
+    if (!session?.user?.email) throw new Error("Unauthorized");
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      include: { profile: true },
+    });
+
+    if (!user || !user.profile) throw new Error("Profile not found");
+
+    // Delete the address, ensuring it belongs to the logged-in user's profile
+    await prisma.address.delete({
+      where: { 
+        id: id,
+        profileId: user.profile.id 
+      },
+    });
+    
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
