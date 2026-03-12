@@ -349,47 +349,47 @@ export default function Main({
           ))}
         </div>
       </section>
-     
 
       {/* 5. WATCHES SPOTLIGHT */}
-      <section className="bg-[#E3E6E1] border-b border-gray-200">
+      {/* 5. MEN'S GEAR SPOTLIGHT */}
+      <section className="bg-[#F5F5F5] border-b border-gray-200">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
           <div className="order-1 aspect-[4/5] overflow-hidden bg-[#FAFAFA] relative">
             <div className="absolute inset-0 bg-gray-100 mix-blend-multiply transition-colors duration-500 hover:bg-transparent z-10 pointer-events-none"></div>
             <img
-              src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=800"
-              alt="Premium Men's Watch"
+              // A premium flatlay or lifestyle shot of men's gear
+              src="/mengroomingkits.jpg"
+              alt="Men's Watches, Wallets, Sunglasses and Bracelets"
               className="w-full h-full object-cover hover:scale-105 transition-all duration-1000"
               loading="lazy"
               decoding="async"
             />
           </div>
-          <div className="order-2 space-y-6 md:space-y-8 px-6 md:px-12 pb-6 md:py-0">
+          <div className="order-2 space-y-6 md:space-y-8 px-4 pb-6 md:py-0">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
-              Horology Spotlight
+              The Signature Collection
             </h2>
-            <h3 className="font-display italic pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
-              MASTER
+            <h3 className="font-display uppercase italic pb-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[0.9] tracking-tight text-foreground">
+              Grooming and
               <br />
-              YOUR
-              <br />
-              TIME
+              Self Care
             </h3>
             <p className="text-sm text-muted leading-relaxed max-w-md">
-              Elevate your everyday presence. Our curated selection of premium
-              men's timepieces marries precision mechanical engineering with
-              bold, timeless industrial design.
+              The ultimate grooming arsenal for the modern gentleman. We curate
+              the essentials of refined self-care: precision beard trimmers,
+              nourishing oils, premium shaving tools, and performance-driven
+              skincare. Built to keep you sharp, confident, and ready for every
+              day.
             </p>
             <div className="flex items-center gap-3 text-foreground text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
               <span className="h-2 w-2 bg-foreground group-hover:scale-150 transition-transform duration-300"></span>
               <span className="border-b border-transparent group-hover:border-foreground transition-colors duration-300">
-                Explore Timepieces
+                Shop Men's Grooming Kits
               </span>
             </div>
           </div>
         </div>
       </section>
-
       {/* 6. TOP SELLERS */}
       <section className="py-16 bg-[#FAFAFA] border-b border-gray-200">
         <div className="container-main mx-auto px-6 md:px-12 flex justify-between items-center mb-12">
@@ -426,7 +426,7 @@ export default function Main({
             <div className="absolute inset-0 bg-gray-100 mix-blend-multiply transition-colors duration-500 hover:bg-transparent z-10 pointer-events-none"></div>
             {/* I swapped the placeholder with a premium barber/grooming tools image from Unsplash, but feel free to change it back to your local image! */}
             <img
-              src="https://images.unsplash.com/photo-1599305090598-fe179d501227?auto=format&fit=crop&q=80&w=800"
+              src="lifestyle.jpg"
               alt="Men's Grooming Hardware"
               className="w-full h-full object-cover hover:scale-105 transition-all duration-1000"
               decoding="async"
@@ -434,20 +434,19 @@ export default function Main({
           </div>
           <div className="order-2 md:order-1 space-y-6 md:space-y-8 px-6 md:px-12 pb-6 md:py-0">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
-              Grooming Essentials
+              Style Essentials
             </h2>
-            <h3 className="font-display italic pb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight text-foreground">
-              PRECISION
+            <h3 className="font-display uppercase italic pb-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[0.9] tracking-tight text-foreground">
+              Accessories
               <br />
-              IN EVERY
-              <br />
-              DETAIL
+              and Style
+            
             </h3>
             <p className="text-sm text-muted leading-relaxed max-w-md">
-              From heavy-duty, precision-engineered nail clippers to
-              professional-grade grooming kits. We source the finest stainless
-              steel hardware designed to last a lifetime and elevate your
-              personal care rituals.
+              From precision-crafted nail tools to refined everyday accessories,
+              we source premium stainless steel essentials built for durability,
+              performance, and timeless style—designed to elevate your personal
+              care routine.
             </p>
             <div className="flex items-center gap-3 text-foreground text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
               <span className="h-2 w-2 bg-foreground group-hover:scale-150 transition-transform duration-300"></span>
@@ -458,7 +457,6 @@ export default function Main({
           </div>
         </div>
       </section>
-    
 
       {/* 8. HOT DEALS */}
       <section className="py-16 bg-[#FAFAFA] border-b border-gray-200">
@@ -493,17 +491,15 @@ export default function Main({
         </div>
       </section>
 
-    
-
       {/* 9. CAMPAIGN - LEATHER GOODS */}
       <section className="bg-foreground text-white border-b border-gray-800">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
-          <div className="order-1 md:order-2 aspect-[4/5] overflow-hidden bg-gray-800 relative">
+          <div className="order-1 md:order-2 overflow-hidden bg-gray-800 relative">
             <img
-              // Using a moody, dark leather wallet/accessories image
-              src="https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=800"
-              alt="Premium Leather Wallet"
-              className="w-full h-full object-cover opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-1000"
+              src="/everydaycarry.jpg"
+              alt="Everyday Carry Gear"
+              // CHANGED HERE: h-full to h-auto, and removed object-cover
+              className="w-full h-auto opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-1000"
               decoding="async"
             />
           </div>
@@ -511,17 +507,15 @@ export default function Main({
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
               Exclusive Collection
             </h2>
-            <h3 className="font-display italic text-5xl sm:text-6xl pb-2 md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight">
-              THE
+            <h3 className="font-display uppercase italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl pb-2 font-medium leading-[0.9] tracking-tight">
+              Everyday
               <br />
-              OBSIDIAN
-              <br />
-              RESERVE
+              Carry
             </h3>
             <p className="text-sm text-gray-400 leading-relaxed max-w-md">
-              A masterclass in restraint. Hand-stitched full-grain leather goods
-              finished with matte-black PVD hardware. Designed to age
-              beautifully and quietly command respect.
+              The essentials of everyday carry, refined. Durable,
+              precision-built pieces designed to move with you balancing
+              function, reliability, and timeless masculine style.
             </p>
             <div className="flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest cursor-pointer group self-start">
               <span className="h-2 w-2 bg-white group-hover:scale-150 transition-transform duration-300"></span>
@@ -629,13 +623,18 @@ export default function Main({
             <div className="flex flex-col justify-between">
               <div className="space-y-6 md:space-y-8">
                 <h3 className="font-display text-2xl md:text-4xl font-medium leading-[0.9] pb-2 tracking-tight">
-                  <span className="font-light text-muted">/</span>THE LEATHER PALMS
+                  <span className="font-light text-muted">/</span>THE LEATHER
+                  PALMS
                   <sup className="text-xs font-normal text-muted align-top ml-4 tracking-normal">
                     SS-26
                   </sup>
                 </h3>
                 <p className="text-sm text-muted leading-relaxed max-w-sm">
-                  Engineered for the art of unwinding. We paired hand-cut, full-grain leather with contoured, shock-absorbing footbeds. Whether you call them palms, slides, or slippers—this is effortless, slip-on luxury designed to anchor your off-duty wardrobe.
+                  Engineered for the art of unwinding. We paired hand-cut,
+                  full-grain leather with contoured, shock-absorbing footbeds.
+                  Whether you call them palms, slides, or slippers—this is
+                  effortless, slip-on luxury designed to anchor your off-duty
+                  wardrobe.
                 </p>
                 <div className="pt-4">
                   <button className="px-8 py-4 border border-foreground text-[10px] font-bold uppercase tracking-widest hover:bg-foreground hover:text-white transition-colors duration-300">
@@ -649,7 +648,7 @@ export default function Main({
                 <div className="flex-1 overflow-hidden bg-gray-200">
                   <img
                     alt="Man wearing premium leather palms"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 grayscale hover:grayscale-0"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 "
                     src="https://images.unsplash.com/photo-1603487742131-4160ec999306?auto=format&fit=crop&q=80&w=800"
                     decoding="async"
                   />
@@ -657,7 +656,7 @@ export default function Main({
                 <div className="flex-1 overflow-hidden bg-gray-200">
                   <img
                     alt="Detail shot of leather slippers"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 grayscale hover:grayscale-0"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 "
                     src="https://images.unsplash.com/photo-1562183241-b937e95585b6?auto=format&fit=crop&q=80&w=800"
                     decoding="async"
                   />
@@ -667,7 +666,6 @@ export default function Main({
           </div>
         </div>
       </section>
- 
 
       <section className="pt-16 bg-white overflow-hidden">
         <div className="container-main mx-auto px-6 md:px-12 flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
@@ -681,29 +679,48 @@ export default function Main({
             Follow Us On Instagram
           </a>
         </div>
+
         <div className="flex gap-2 overflow-x-auto hide-scrollbar">
           {[
-            "1617137911089-4c1170f6b4e6",
-            "1503341455253-b2e723bb3dbb",
-            "1492707892639-74e2013f9661",
-            "1550614000-4b95d4ebf089",
-            "1503342394128-c104d54dba01",
-          ].map((img, i) => (
-            <div
+            {
+              img: "1503342394128-c104d54dba01",
+              link: "https://instagram.com/p/your-post-link",
+            },
+            {
+              img: "1503341455253-b2e723bb3dbb",
+              link: "https://instagram.com/p/your-post-link",
+            },
+            {
+              img: "1503342394128-c104d54dba01",
+              link: "https://instagram.com/p/your-post-link",
+            },
+            {
+              img: "1503341455253-b2e723bb3dbb",
+              link: "https://instagram.com/p/your-post-link",
+            },
+            {
+              img: "1503342394128-c104d54dba01",
+              link: "https://instagram.com/p/your-post-link",
+            },
+          ].map((post, i) => (
+            <a
               key={i}
-              className="min-w-[180px] sm:min-w-[240px] md:min-w-[300px] aspect-square flex-shrink-0 group relative cursor-pointer overflow-hidden bg-gray-100"
+              href={post.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="min-w-[180px] sm:min-w-[240px] md:min-w-[300px] aspect-square flex-shrink-0 group relative cursor-pointer overflow-hidden bg-gray-100 block"
             >
               <img
-                src={`https://images.unsplash.com/photo-${img}?auto=format&fit=crop&q=80&w=600`}
-                alt="Social Feed"
+                // FIXED HERE: changed ${img} to ${post.img}
+                src={`https://images.unsplash.com/photo-${post.img}?auto=format&fit=crop&q=80&w=600`}
+                alt="Akinaura on Instagram"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
-                decoding="async"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500 flex items-center justify-center">
                 <Instagram className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform group-hover:scale-110" />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
