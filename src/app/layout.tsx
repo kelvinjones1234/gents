@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   title: "Akinaura",
   description: "Premium essentials and gear for the modern gentlemen.",
   icons: {
-    icon: "/6.png", 
-    apple: "/6.png",
+    icon: "/logo.png", 
+    apple: "/logo.png",
   },
   openGraph: {
-    images: ["/6.png"], 
+    images: ["/logo.png"], 
   },
 };
 
