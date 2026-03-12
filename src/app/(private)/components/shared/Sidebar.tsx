@@ -65,7 +65,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             onClick={handleLinkClick}
           >
             <Image
-              src="/6.png"
+              src="/logo.png"
               alt="Gents Collection Store Logo"
               width={80}
               height={10}

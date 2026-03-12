@@ -239,7 +239,7 @@ export default function Navbar() {
               className="font-display text-xl md:text-2xl font-bold tracking-widest text-foreground"
             >
               <Image
-                src="/6.png"
+                src="/logo.png"
                 alt="Gents Collection Store Logo"
                 width={100}
                 height={80}
