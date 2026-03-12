@@ -352,7 +352,7 @@ export default function Main({
      
 
       {/* 5. WATCHES SPOTLIGHT */}
-      <section className="bg-white border-b border-gray-200">
+      <section className="bg-[#E3E6E1] border-b border-gray-200">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-24 items-center">
           <div className="order-1 aspect-[4/5] overflow-hidden bg-[#FAFAFA] relative">
             <div className="absolute inset-0 bg-gray-100 mix-blend-multiply transition-colors duration-500 hover:bg-transparent z-10 pointer-events-none"></div>
@@ -432,7 +432,7 @@ export default function Main({
               decoding="async"
             />
           </div>
-          <div className="order-2 md:order-1 space-y-6 md:space-y-8 px-6 md:px-12">
+          <div className="order-2 md:order-1 space-y-6 md:space-y-8 px-6 md:px-12 pb-6 md:py-0">
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-muted">
               Grooming Essentials
             </h2>
@@ -620,7 +620,7 @@ export default function Main({
 
       {/* 12. COLLABORATIONS - EDC HARDWARE */}
       {/* 12. FOOTWEAR / PALMS SPOTLIGHT */}
-      <section className="py-16 bg-[#FAFAFA] border-b border-gray-200">
+      <section className="py-16 bg-[#E6E4DF] border-b border-gray-200">
         <div className="container-main mx-auto px-6 md:px-12">
           <h2 className="text-xs font-bold uppercase tracking-widest mb-12 md:mb-24 text-foreground">
             The Resort Collection
